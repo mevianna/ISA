@@ -29,4 +29,8 @@ O algoritmo se consolidou como uma das técnicas padrão de agrupamento. A simpl
 ### Atualidade: Um Algoritmo Clássico
 Hoje, o K-means é amplamente utilizado em várias áreas, como análise de dados, aprendizado não supervisionado e mineração de dados. Apesar de suas limitações, ele continua sendo um método fundamental pela sua eficiência e simplicidade.
 
+## Referências
+https://www.ibm.com/think/topics/k-means-clustering
+https://www.datacamp.com/tutorial/k-means-clustering-python
+
 
