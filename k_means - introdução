@@ -1,0 +1,32 @@
+# English Version
+
+
+# Portuguese Version
+
+## Definição
+O K-means clustering é um algoritmo de aprendizado não supervisionado amplamente utilizado para agrupar dados não rotulados em clusters, o que significa que os pontos de dados não têm uma estrutura de classificação definida. Ademais, essa forma de agrupamento estipula que um ponto de dados pode existir em apenas um cluster, os quais são formados em torno de centróides, que são calculados como a média de todos os pontos em um cluster, dependendo das características dos dados.
+
+## Objetivo
+O objetivo desse algoritmo é minimizar a soma das distâncias entre os pontos de dados e seus agrupamentos atribuídos. Pontos de dados que estão mais próximos de um centróide são agrupados na mesma categoria. Um valor maior de k (número de clusters), ou número de agrupamentos, indica agrupamentos menores e com um maior nível de detalhe, enquanto um valor menor de k resulta em agrupamentos maiores e com menor detalhe.
+
+## História
+O método K-means surgiu a partir de trabalhos pioneiros na área de estatísticas e processamento de sinais. A ideia fundamental de minimizar a soma das distâncias quadráticas foi proposta por diversos pesquisadores quase simultaneamente.
+O conceito inicial foi introduzido por Hugo Steinhaus em 1956, que apresentou a ideia de particionar um conjunto de pontos em grupos minimizando as distâncias internas. Posteriormente, o algoritmo foi formalizado e redefinido por Stuart Lloyd em 1957, enquanto trabalhava nos laboratórios da Bell.
+
+### Década de 1960: Popularização
+Em 1967, James MacQueen deu o nome "K-means" ao algoritmo e contribuiu para a popularização do método ao propor uma versão mais prática e aplicável para dados multidimensionais. Além disso, introduziu a ideia de atualizar os centróides conforme os dados eram atribuídos aos clusters, enquanto a versão original de Lloyd utilizava uma abordagem em batch.
+
+### Década de 1970 e 1980: Consolidação
+O algoritmo se consolidou como uma das técnicas padrão de agrupamento. A simplicidade e a eficiência tornaram o K-means uma escolha comum em problemas práticos.
+
+### Década de 2000: Melhorias e Variantes
+* K-means++ (2007): Melhorou a inicialização dos centróides para evitar resultados insatisfatórios.
+
+* Fuzzy C-means: Permite que um ponto pertença a mais de um cluster com graus de pertinência.
+
+* Mini-Batch K-means: Adaptado para grandes conjuntos de dados, utilizando amostragens menores.
+
+### Atualidade: Um Algoritmo Clássico
+Hoje, o K-means é amplamente utilizado em várias áreas, como análise de dados, aprendizado não supervisionado e mineração de dados. Apesar de suas limitações, ele continua sendo um método fundamental pela sua eficiência e simplicidade.
+
+
