@@ -1,1 +1,30 @@
-#####teste##
+## 1. Teorema de Bayes
+
+O **Teorema de Bayes** é a espinha dorsal do classificador Naive Bayes. Ele descreve a probabilidade de um evento (uma classe) com base no conhecimento prévio de condições que podem estar relacionadas a esse evento (os atributos).
+
+No contexto de aprendizado de máquina, para uma nova instância **A** (ou **x**) com atributos `a₁, ..., aₙ` (ou `x₁, ..., xₙ`), e um conjunto de classes **C**, o teorema é expresso como:
+
+$$
+P(\text{classe} \mid A) = \frac{P(A \mid \text{classe}) \times P(\text{classe})}{P(A)}
+$$
+
+Onde:
+* `P(classe | A)` é a **probabilidade a posteriori** da classe, dado o conjunto de atributos A.
+* `P(A | classe)` é a **verossimilhança** (likelihood) do conjunto de atributos A, dada a classe.
+* `P(classe)` é a **probabilidade a priori** da classe.
+* `P(A)` é a **probabilidade a priori** do conjunto de atributos A (também chamada de evidência).
+
+Alternativamente, para um vetor de covariáveis **x** e uma classe `c ∈ C`:
+
+- **Para x contínuo:**
+  $$
+  P(Y=c \mid x) = \frac{f(x \mid Y=c)P(Y=c)}{\sum_{s \in C} f(x \mid Y=s)P(Y=s)}
+  $$
+  Onde `f(x | Y=c)` é a densidade de probabilidade condicional.
+
+- **Para X discreto:**
+  $$
+  P(Y=c \mid X=x) = \frac{P(X=x \mid Y=c)P(Y=c)}{\sum_{s \in C} P(X=x \mid Y=s)P(Y=s)}
+  $$
+
+---
