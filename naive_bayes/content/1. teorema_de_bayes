@@ -1,5 +1,3 @@
-$$
-P(\text{classe} | A) = \frac{P(A | \text{classe}) \times P(\text{classe})}{P(A)}
-$$
+
 
 
