@@ -1,1 +1,55 @@
-a
+# 🧠 Teorema de Bayes
+
+O **Teorema de Bayes** é um conceito fundamental na teoria da probabilidade e a espinha dorsal do classificador *Naive Bayes*. Ele descreve a probabilidade de um evento ocorrer, com base no conhecimento prévio de condições que possam estar relacionadas a esse evento.
+
+## A Fórmula Fundamental
+
+No contexto de aprendizado de máquina, para uma nova instância de dados $A$ (com atributos $a_1, ..., a_n$) e um conjunto de classes $C$, o teorema é expresso como:
+
+$$
+P(\text{classe} | A) = \frac{P(A | \text{classe}) \times P(\text{classe})}{P(A)}
+$$
+
+---
+
+## Componentes da Fórmula
+
+- `$P(\text{classe} | A)$`: **Probabilidade a posteriori**. É a probabilidade de uma `classe` ser a correta, *dado que* a evidência $A$ foi observada. Este é o valor que geralmente queremos encontrar.
+
+- `$P(A | \text{classe})$`: **Verossimilhança (*Likelihood*)**. É a probabilidade de observar a evidência $A$, *dado que* a instância pertence a uma determinada `classe`.
+
+- `$P(\text{classe})$`: **Probabilidade a priori**. É a probabilidade inicial de uma `classe` ser a correta, antes de qualquer evidência ser considerada.
+
+- `$P(A)$`: **Evidência (*Evidence*)**. É a probabilidade total de observar a evidência $A$ em qualquer uma das classes. Atua como uma constante de normalização.
+
+---
+
+## Formulações Alternativas
+
+O teorema pode ser adaptado dependendo da natureza das variáveis (atributos).
+
+### Para Variáveis Contínuas
+
+Quando os atributos `x` são contínuos, utiliza-se a densidade de probabilidade condicional $f(x | Y=c)$.
+
+$$
+P(Y=c | x) = \frac{f(x | Y=c)P(Y=c)}{\sum_{s \in C} f(x | Y=s)P(Y=s)}
+$$
+
+### Para Variáveis Discretas
+
+Para atributos `X` discretos, a fórmula utiliza a probabilidade condicional $P(X=x | Y=c)$.
+
+$$
+P(Y=c | X=x) = \frac{P(X=x | Y=c)P(Y=c)}{\sum_{s \in C} P(X=x | Y=s)P(Y=s)}
+$$
+
+---
+
+## Aplicação para Múltiplos Atributos
+
+Considerando uma instância $A$ com múltiplos atributos independentes $(a_1, ..., a_n)$, a fórmula é aplicada da seguinte forma:
+
+$$
+P(\text{classe} | a_1, ..., a_n) = \frac{P(a_1, ..., a_n | \text{classe}) \times P(\text{classe})}{P(a_1, ..., a_n)}
+$$
