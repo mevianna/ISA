@@ -1,1 +1,48 @@
+# Teorema de Bayes
+
+O **Teorema de Bayes** é a base do classificador **Naive Bayes**. Ele expressa a probabilidade de um evento (neste caso, uma classe) com base em informações anteriores, como os atributos da instância observada.
+
+## Definição Geral
+
+Dado um conjunto de atributos A (ou um vetor x) e uma classe qualquer, o Teorema de Bayes é definido como:
+
+P(classe | A) = (P(A | classe) * P(classe)) / P(A)
+
+### Onde:
+
+- **P(classe | A)**: probabilidade *a posteriori* da classe, dado o conjunto de atributos.
+- **P(A | classe)**: verossimilhança (likelihood) dos atributos, dada a classe.
+- **P(classe)**: probabilidade *a priori* da classe.
+- **P(A)**: probabilidade *a priori* do conjunto de atributos (também chamada de **evidência**).
+
+---
+
+## Formulações por tipo de dado
+
+### 1. Para variáveis contínuas:
+
+Dado um vetor de covariáveis x e uma classe c pertencente ao conjunto de classes C:
+
+P(Y = c | x) = [ f(x | Y = c) * P(Y = c) ] / Somatório sobre s em C de [ f(x | Y = s) * P(Y = s) ]
+
+- Onde f(x | Y = c) é a função de densidade de probabilidade condicional.
+
+---
+
+### 2. Para variáveis discretas:
+
+P(Y = c | X = x) = [ P(X = x | Y = c) * P(Y = c) ] / Somatório sobre s em C de [ P(X = x | Y = s) * P(Y = s) ]
+
+---
+
+## Aplicação a uma instância com múltiplos atributos
+
+Para uma instância com n atributos a1, a2, ..., an:
+
+P(classe | a1, a2, ..., an) = [ P(a1, a2, ..., an | classe) * P(classe) ] / P(a1, a2, ..., an)
+
+No classificador Naive Bayes, assume-se que os atributos são condicionalmente independentes dados a classe. Isso permite reescrever a verossimilhança como:
+
+P(a1, a2, ..., an | classe) = P(a1 | classe) * P(a2 | classe) * ... * P(an | classe)
+
 
