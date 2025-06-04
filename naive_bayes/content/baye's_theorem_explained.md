@@ -1,3 +1,4 @@
+# English Version
 # Baye's Theorem
 Bayes theorem (also known as the Bayes Rule or Bayes Law) is used to determine the conditional probability of event A when event B has already occurred, it's a formula used to calculate the probability of an outcome given a known previus outcome that occured in similar circumstances.
 > KEY TAKEAWAYS
@@ -21,9 +22,8 @@ A test for this disease is:
 Now, if a person tests positive, what is the **probability they actually have the disease?**  
 
 ### 📊 Bayes' Theorem Formula
-```
-P(Disease | Positive) = (P(Positive | Disease) * P(Disease))/P(Positive)
-```
+$$P(\text{Disease} \mid \text{Positive}) = \frac{P(\text{Positive} \mid \text{Disease}) \cdot P(\text{Disease})}{P(\text{Positive})}$$
+
 
 ### 🧮 Given:
 - P(Disease) = 0.01
@@ -33,9 +33,8 @@ P(Disease | Positive) = (P(Positive | Disease) * P(Disease))/P(Positive)
 ### 🧠 Step 1: Compute total probability of testing positive
 P(Positive)=(0.99⋅0.01)+(0.05⋅0.99)=0.0099+0.0495=0.0594
 ### 🔍 Step 2: Apply Bayes' Theorem
-``` 
-P(Disease | Positive) = 0.99 * 0.01 / 0.0594 = 0.0099 / 0.0594
-``` 
+$$P(\text{Disease} \mid \text{Positive}) = \frac{0.99 \times 0.01}{0.0594} = \frac{0.0099}{0.0594}$$
+
 ### ✅ Answer: About 16.7%
 Even with a **positive test**, the chance of actually having the disease is only 16.7%, because the disease is rare and the test has some false positives.
 
