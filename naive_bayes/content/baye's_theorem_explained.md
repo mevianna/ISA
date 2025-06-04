@@ -9,10 +9,6 @@ Bayes theorem (also known as the Bayes Rule or Bayes Law) is used to determine t
 </div>   
 <br>   
 
-```diff
-+ 📝
-```
-
 ## 🧪 Example 
 
 Now let's see an simple example in the **medical test results** context about **Disease Testing**:  
@@ -42,10 +38,7 @@ P(Disease | Positive) = 0.99 * 0.01 / 0.0594 = 0.0099 / 0.0594
 ``` 
 ### ✅ Answer: About 16.7%
 Even with a **positive test**, the chance of actually having the disease is only 16.7%, because the disease is rare and the test has some false positives.
-```diff
-+ 📝
-```
-<code style="color: Aqua">test</code>
+
 
 ### References
 - <[Baye's Theorem](https://www.investopedia.com/terms/b/bayes-theorem.asp)>. Acess 29 may 2025 
