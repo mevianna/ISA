@@ -64,8 +64,7 @@ A técnica geral de adicionar uma constante $\alpha$ é chamada de **Lidstone Sm
 
 * **α pequeno (e.g., 0.1-0.5):** Confia mais nos dados originais e aplica uma correção mínima.
 * **α grande (>1):** É mais conservador e distribui as probabilidades de forma mais uniforme, suavizando mais os dados.
-
-O **Laplace Smoothing** (também conhecido como *Add-One Smoothing*) é simplesmente o caso especial e mais famoso do Lidstone Smoothing, onde se escolhe **$\alpha = 1$**. É a escolha padrão em muitas implementações por ser um ponto de partida balanceado e eficaz.
+* O **Laplace Smoothing** (também conhecido como *Add-One Smoothing*) é simplesmente o caso especial e mais famoso do Lidstone Smoothing, onde se escolhe **$\alpha = 1$**. É a escolha padrão em muitas implementações por ser um ponto de partida balanceado e eficaz.
 
 ### Base Teórica: MLE vs MAP
 
