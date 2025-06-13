@@ -1,6 +1,6 @@
-#English Version
+# English Version
 
-#Portuguese version
+# Portuguese version
 
 ## **Laplace/Lidstone Smoothing**
 
