@@ -18,6 +18,7 @@ Durante o treinamento do Naive Bayes, pode acontecer de um atributo (como uma pa
 Isso resulta no seguinte cálculo de probabilidade:
 
 $P(\text{"promoção"}|\text{spam}) = \frac{50}{900} \approx 0.056$
+
 $P(\text{"promoção"}|\text{normal}) = \frac{0}{2100} = 0$
 
 O problema surge quando um novo e-mail chega contendo a palavra "promoção" junto com outras palavras que poderiam indicar que é um email normal. Ao usar log-probabilidades para classificar, teremos:
