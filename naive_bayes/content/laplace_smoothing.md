@@ -71,16 +71,17 @@ O **Laplace Smoothing** (também conhecido como *Add-One Smoothing*) é simplesm
 
 A intuição por trás do smoothing tem uma fundamentação teórica sólida. Para entender por que ele funciona, podemos contrastar duas abordagens de estimativa:
 
-* **Maximum Likelihood Estimation (MLE): "Só acredito no que vejo nos dados."**
+- **Maximum Likelihood Estimation (MLE): "Só acredito no que vejo nos dados."**
     * Esta abordagem calcula as probabilidades contando simplesmente as ocorrências nos dados de treinamento. O Naive Bayes sem smoothing usa essa filosofia. Sua fórmula é exatamente a que usamos para o cálculo inicial, sem correção:
       
-    $$P_{MLE}(X_i|C) = \frac{\text{Nº de e-mails da classe C com a palavra } X_i}{\text{Nº total de e-mails da classe } C}$$
+      $$P_{MLE}(X_i|C) = \frac{\text{Nº de e-mails da classe C com a palavra } X_i}{\text{Nº total de e-mails da classe } C}$$
   
-    O ponto fraco é que se um evento nunca ocorreu na sua amostra, sua probabilidade é definida como zero, o que torna o modelo frágil.
+   * O ponto fraco é que se um evento nunca ocorreu na sua amostra, sua probabilidade é definida como zero, o que torna o modelo frágil.
 
-* **Maximum A Posteriori (MAP): "Eu combino o que eu já acredito com o que os dados me mostram."**
+- **Maximum A Posteriori (MAP): "Eu combino o que eu já acredito com o que os dados me mostram."**
     * A ideia fundamental do MAP é, de fato, **incorporar um "conhecimento prévio" (a priori) aos dados observados** para chegar a uma estimativa final (a posteriori). 
   
     * No nosso contexto, aplicamos este conceito de forma muito pragmática usando **pseudocontagens** (o valor α). Nosso "conhecimento prévio" não é uma crença complexa, mas sim a suposição simples e útil de que **toda palavra tem uma pequena chance de aparecer**, mesmo que não a tenhamos visto.
 
-    ## Referências
+
+## Referências
