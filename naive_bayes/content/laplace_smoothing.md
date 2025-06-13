@@ -30,11 +30,11 @@ Como $P(\text{"promoção"}|\text{normal}) = 0$, temos $\log(0) = -\infty$, e to
 
 A solução é simples: adicionamos uma pequena constante $\alpha$ a todas as contagens. Essa técnica é chamada de **smoothing (suavização)**. Em vez de calcular:
 
-$P(X_i|C) = \frac{\text{Nº de e-mails da classe C com a palavra } X_i}{\text{Nº total de e-mails da classe } C}$
+$$P(X_i|C) = \frac{\text{Nº de e-mails da classe C com a palavra } X_i}{\text{Nº total de e-mails da classe } C}$$
 
 Calculamos:
 
-$P(X_i|C) = \frac{(\text{Nº de e-mails da classe C com a palavra } X_i) + \alpha}{(\text{Nº total de e-mails da classe } C) + 2\alpha}$
+$$P(X_i|C) = \frac{(\text{Nº de e-mails da classe C com a palavra } X_i) + \alpha}{(\text{Nº total de e-mails da classe } C) + 2\alpha}$$
 
 > [!NOTE]
 > **Por que `2α` no denominador?**
