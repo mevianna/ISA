@@ -24,7 +24,7 @@ O problema surge quando um novo e-mail chega contendo a palavra "promoção" jun
 
 $$\log P(\text{normal}) + \log P(\text{"promoção"}|\text{normal}) + \log P(\text{outras palavras}|\text{normal})$$
 
-Como $P(\text{"promoção"}|\text{normal}) = 0$, temos $\log(0) = -\infty$, e toda a pontuação para a classe "normal" resulta em $-\infty$. O algoritmo **nunca** classificará um e-mail como normal se ele contiver a palavra "promoção", não importa quais outras evidências existam. Esse problema é bastante comum que afeta qualquer aplicação de Naive Bayes. 
+Como $P(\text{"promoção"}|\text{normal}) = 0$, temos $\log(0) = -\infty$, e toda a pontuação para a classe "normal" resulta em $-\infty$. O algoritmo **nunca** classificará um e-mail como normal se ele contiver a palavra "promoção", não importa o que as outras palavras do e-mail sugiram. Esse problema é bastante comum que afeta qualquer aplicação de Naive Bayes. 
 
 ### A Solução: Laplace/Lindstone Smoothing 
 
