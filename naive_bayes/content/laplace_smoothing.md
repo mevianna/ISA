@@ -75,7 +75,7 @@ A intuição por trás do smoothing tem uma fundamentação teórica sólida. Pa
 - **Estimação por Máxima Verossimilhança (Maximum Likelihood Estimation - MLE): "Só acredito no que vejo nos dados."**
     * Esta abordagem calcula as probabilidades contando simplesmente as ocorrências nos dados de treinamento. O Naive Bayes sem smoothing usa essa filosofia. Sua fórmula é exatamente a que usamos para o cálculo inicial, sem correção:
       
-      $$P_{MLE}(X_i|C) = \frac{\text{Contagem da palavra $X_i$ na classe}}{\text{Nº total de palavras da classe } C}$$
+      $$P_{MLE}(X_i \mid C) = \frac{\text{Contagem da palavra } X_i \text{ na classe}}{\text{Número total de palavras da classe } C}$$
   
    * O ponto fraco é que se um evento nunca ocorreu na sua amostra, sua probabilidade é definida como zero, o que torna o modelo frágil.
 
