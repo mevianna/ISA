@@ -39,6 +39,7 @@ $$P(X_i|C) = \frac{(\text{Contagem da palavra $X_i$ na classe}) + \alpha}{(\text
 
 > [!NOTE]
 > **Por que `α × |vocabulário|` no denominador?**
+> 
 > A intuição é que, para qualquer classe, temos **todas as palavras do vocabulário** como possibilidades. A suavização funciona adicionando `α` "palavras fantasmas" para *cada palavra* do vocabulário, garantindo que nenhuma palavra tenha probabilidade zero.
 > * O *`+ α`* no numerador representa as palavras fantasmas adicionadas para a palavra específica que estamos calculando.
 > * O `+ α × |vocabulário|` no denominador representa o total de palavras fantasmas adicionadas: `α` para cada uma das `|vocabulário|` palavras possíveis.
