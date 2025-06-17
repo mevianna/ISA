@@ -35,7 +35,7 @@ $$P(X_i|C) = \frac{\text{Contagem da palavra $X_i$ na classe}}{\text{Nº total d
 
 Calculamos:
 
-$$P(X_i|C) = \frac{(\text{Contagem da palavra $X_i$ na classe}) + \alpha}{(\textNº total de palavras da classe} C) + \alpha*|\text{vocabulario}$$
+$$P(X_i|C) = \frac{(\text{Contagem da palavra $X_i$ na classe}) + \alpha}{(\text {Nº total de palavras da classe} C) + \alpha*|\text{vocabulario}|}$$
 
 > [!NOTE]
 > **Por que `α × |vocabulário|` no denominador?**
