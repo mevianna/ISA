@@ -43,4 +43,56 @@ $$P(X_i|C) = \frac{(\text{Contagem da palavra } X_i \text{ na classe } C) + \alp
 
 ### Complement Naive Bayes (CNB)
 
+Complement Naive Bayes (CNB) é uma adaptação do modelo Multinomial, projetado para lidar melhor com datasets desbalanceados. Em datasets desbalanceados, o Multinomial NB tende a favorecer classes majoritárias, pois elas têm maior probabilidade a priori $P(C)$. O CNB contorna isso focando em quão bem cada documento se distingue do **complemento** de cada classe.
+
+Em vez de calcular a probabilidade de um documento pertencer à classe $C$, ele calcula quão incompatível o documento é com o **complemento** de $C$ (todas as outras classes) e escolhe a classe que é mais incompatível com seu complemento.
+
+#### Classificador Complement Naive Bayes
+
+A decisão é baseada em encontrar a classe que **minimiza** a seguinte expressão:
+
+$$\hat{C} = \arg\min_C \sum_{i=1}^{n} \log P(X_i|\bar{C})$$
+
+A estimativa de $P(X_i|\bar{C})$ segue a mesma lógica da verossimilhança multinomial, mas as contagens são feitas em todas as classes, *exceto* a classe $C$:
+
+$$P(X_i|\bar{C}) = \frac{(\text{Contagem da palavra } X_i \text{ no complemento de } C) + \alpha}{(\text{Nº total de palavras no complemento de } C) + \alpha \cdot |\text{vocabulário}|}$$
+
+Mais formalmente:
+
+$$P(X_i|\bar{C}) = \frac{\alpha + \sum_{c \neq C} N_{ic}}{\alpha |\text{vocabulário}| + \sum_{c \neq C} \sum_{j=1}^{|\text{vocabulário}|} N_{jc}}$$
+
+onde $N_{ic}$ é a contagem da palavra $i$ na classe $c$, e $\alpha$ é o parâmetro de suavização.
+
+#### Exemplo Prático: Classificação de Críticas de Cinema
+
+Vamos usar o cenário com três classes: **Comédia**, **Ação** e **Drama**. A classe "Comédia" é a minoritária.
+
+Recebemos a nova crítica: **"piada hilária e divertida"**.
+
+O CNB calculará a **log-probabilidade do complemento** para cada classe. Este valor representa o quão provável é que a crítica pertença ao conjunto de classes do complemento.
+
+Vamos supor que, após os cálculos, o algoritmo chegou aos seguintes valores:
+
+* **Teste para "Comédia"**: (Calcula a log-probabilidade da crítica pertencer a {Ação, Drama})
+    * $\sum_{i=1}^{n} \log P(X_i|\overline{\text{Comédia}})$ = **-25.8**
+
+* **Teste para "Ação"**: (Calcula a log-probabilidade da crítica pertencer a {Comédia, Drama})
+    * $\sum_{i=1}^{n} \log P(X_i|\overline{\text{Ação}})$ = **-12.5**
+
+* **Teste para "Drama"**: (Calcula a log-probabilidade da crítica pertencer a {Comédia, Ação})
+    * $\sum_{i=1}^{n} \log P(X_i|\overline{\text{Drama}})$ = **-14.2**
+
+**Decisão:**
+
+O classificador usa $\arg\min$, ou seja, ele procura a classe que resultou na **menor log-probabilidade do complemento**.
+
+Comparando os resultados: $-25.8$ é o menor valor.
+
+O valor $-25.8$ para Comédia indica que "piada hilária e divertida" é **muito incompatível** com o conjunto {Ação, Drama}. Quanto menor (mais negativo) esse valor, maior a incompatibilidade com o complemento, logo maior a probabilidade de pertencer à classe testada.
+
+Portanto, o modelo classifica a crítica como **Comédia**. Ele conclui que a crítica é tão incompatível com o conjunto {Ação, Drama} que ela muito provavelmente pertence à classe "Comédia".
+
+#### Vantagem em Datasets Desbalanceados
+
+Esta abordagem é especialmente eficaz em cenários desbalanceados porque, ao focar no complemento, o algoritmo dá peso similar a todas as classes, independentemente de sua frequência no dataset de treino. Isso permite que classes minoritárias tenham uma chance mais justa de serem selecionadas quando realmente apropriado.
 ## Referências
