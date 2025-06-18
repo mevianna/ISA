@@ -41,4 +41,6 @@ Como vimos, este modelo depende diretamente do **Laplace/Lidstone Smoothing** pa
 
 $$P(X_i|C) = \frac{(\text{Contagem da palavra } X_i \text{ na classe } C) + \alpha}{(\text{Nº total de palavras na classe } C) + \alpha \cdot |\text{vocabulário}|}$$
 
+### Complement Naive Bayes (CNB)
+
 ## Referências
