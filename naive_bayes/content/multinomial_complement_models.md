@@ -43,7 +43,7 @@ $$P(X_i|C) = \frac{(\text{Contagem da palavra } X_i \text{ na classe } C) + \alp
 
 ### Complement Naive Bayes (CNB)
 
-Complement Naive Bayes (CNB) é uma adaptação do modelo Multinomial, projetado para lidar melhor com datasets desbalanceados. Em datasets desbalanceados, o Multinomial NB tende a favorecer classes majoritárias, pois elas têm maior probabilidade a priori $P(C)$. O CNB contorna isso focando em quão bem cada documento se distingue do **complemento** de cada classe.
+Complement Naive Bayes (CNB) é uma adaptação do modelo Multinomial, projetado para lidar melhor com datasets desbalanceados. Em datasets desbalanceados, o Multinomial tende a favorecer classes majoritárias, pois elas têm maior probabilidade a priori $P(C)$. O CNB contorna isso focando em quão bem cada documento se distingue do **complemento** de cada classe.
 
 Em vez de calcular a probabilidade de um documento pertencer à classe $C$, ele calcula quão incompatível o documento é com o **complemento** de $C$ (todas as outras classes) e escolhe a classe que é mais incompatível com seu complemento.
 
