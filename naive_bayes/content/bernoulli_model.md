@@ -3,7 +3,7 @@
 O **Bernoulli Naive Bayes** é ideal para problemas em que os atributos são binários – ou seja, indicam **presença ou ausência** de uma característica, e não a frequência.
 
 > [!NOTE]
-> No contexto de texto, por exemplo, esse modelo não considera quantas vezes uma palavra aparece em um documento, mas apenas **se ela aparece ou não**.
+>**Diferença do Multinomial**: Enquanto o modelo Multinomial conta **quantas vezes** cada palavra aparece em um documento, o Bernoulli se preocupa apenas com **se a palavra aparece ou não**. Além disso, o Bernoulli considera **tanto a presença quanto a ausência** de cada atributo na classificação — uma palavra que **não aparece** em um documento também influencia a decisão do classificador.
 
 ### Exemplo
 
@@ -17,22 +17,21 @@ Dois emails:
 | dinheiro  | 1       | 1       |
 | agora     | 0       | 1       |
 
-Mesmo que "dinheiro" apareça 10 vezes em um email, isso não faz diferença para o Bernoulli Naive Bayes — ele trata como **presente**.
+Mesmo que "dinheiro" apareça 10 vezes em um email, isso não faz diferença para o Bernoulli Naive Bayes — ele trata como **presente**. Além disso, o fato de "ganhe" **não aparecer** no Email 2 é uma informação relevante para a classificação.
 
 ### Cálculo da verossimilhança
 
 Usa-se:
 
-$$
-P(X_i = 1|C) = \frac{N_{ic} + \alpha}{N_c + 2\alpha}
-$$
+Para cada atributo $X_i$, calculamos as probabilidades de **presença** e **ausência**:
 
-$$
-P(X_i = 0|C) = 1 - P(X_i = 1|C)
-$$
+$$P(X_i = 1|C) = \frac{N_{ic} + \alpha}{N_c + 2\alpha}$$
 
-- $N_{ic}$ = nº de documentos da classe $C$ que contêm a palavra $X_i$
-- $N_c$ = total de documentos da classe $C$
+$$P(X_i = 0|C) = 1 - P(X_i = 1|C) = \frac{N_c - N_{ic} + \alpha}{N_c + 2\alpha}$$
+
+
+- $N_{ic}$ = nº de emails da classe $C$ que contêm a palavra $X_i$
+- $N_c$ = total de emails da classe $C$
 - $\alpha$ = parâmetro de suavização
 
 > [!NOTE]
@@ -49,12 +48,14 @@ $$
 
 ### O papel do $x_i$ na fórmula
 
-Na equação acima, o termo $ x_i$ representa se o atributo  $i$ está **presente (1)** ou **ausente (0)** no exemplo que estamos classificando. Ele atua como um **seletor** que decide qual probabilidade será usada:
+Na equação acima, o termo $x_i$ representa se o atributo  $i$ está **presente (1)** ou **ausente (0)** no exemplo que estamos classificando. Ele atua como um **seletor** que decide qual probabilidade será usada:
 
-- Se $ x_i=1$ , o termo se reduz a $( \log P(X_i = 1 | C) )$, ou seja, usamos a **probabilidade de presença**.
-- Se $ x_i=0$, o termo vira $( \log(1 - P(X_i = 1 | C)) )$, ou seja, usamos a **probabilidade de ausência**.
+- **Se $x_i=1$ (palavra presente)**: o primeiro termo $x_i \log P(X_i=1|C)$ contribui com $\log P(X_i=1|C)$, e o segundo termo $(1-x_i) \log P(X_i=0|C)$ se anula.
 
-Essa estrutura permite que o modelo Bernoulli leve em consideração **não apenas as palavras que estão presentes no documento**, mas também aquelas que estão **ausentes**, o que é uma grande diferença em relação ao modelo Multinomial. Isso faz com que o Bernoulli NB seja mais sensível ao padrão geral de presença e ausência de termos, o que pode ser útil especialmente em documentos curtos ou filtrados.
+- **Se $x_i=0$ (palavra ausente)**: o primeiro termo se anula, e o segundo termo contribui com $\log P(X_i=0|C)$.
+
+
+**Resultado**: Para cada palavra no vocabulário, o modelo sempre considera uma evidência — seja a probabilidade de presença (quando a palavra aparece) ou a probabilidade de ausência (quando não aparece).
 
 > [!TIP]
 > Bernoulli NB pode ser mais adequado que o Multinomial quando os documentos são curtos ou quando a **frequência** de palavras é irrelevante.
