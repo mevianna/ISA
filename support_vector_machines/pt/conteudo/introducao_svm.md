@@ -19,7 +19,7 @@ Agora, você quer esticar uma corda no chão para separar os dois grupos da melh
 O que o SVM faz? 
 
 - Ele procura a melhor posição para essa corda (o hiperplano) que separa os dois grupos.
-- Os amigos mais próximos da corda são chamados de pontos de suporte — eles são os que “definem” onde a corda pode passar.
+- Os amigos mais próximos da corda são chamados de pontos de suporte eles são os que “definem” onde a corda pode passar.
 - A SVM tenta maximizar a distância entre a corda e esses amigos mais próximos, criando uma margem de segurança entre os grupos.
 
 Se alguém mudar de lugar e ficar mais perto da corda, a posição dela pode mudar porque os pontos de suporte mudaram!
