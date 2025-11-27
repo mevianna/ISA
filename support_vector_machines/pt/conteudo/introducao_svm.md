@@ -78,7 +78,7 @@ Para o conjunto de dados não linear (círculos e triângulos) é observável qu
 > [!NOTE]
 > Uma SVM linear simples não conseguiria encontrar essa fronteira.
 
-O uso de **funções Kernel ($K$)** permite que o produto escalar dos dados no espaço de alta dimensão ($\Phi(\mathbf{x}_i) \cdot \Phi(\mathbf{x}_j)$) seja calculado de forma eficiente no espaço de entrada $X$.
+O uso de **funções Kernel ($K$)** permite que o produto escalar dos dados no espaço de alta dimensão (**Phi(xi) . Phi(xj)**) seja calculado de forma eficiente no espaço de entrada $X$.
 
 $$K(\mathbf{x}_{i},\mathbf{x}_{j})=\Phi(\mathbf{x}_{i})\cdot\Phi(\mathbf{x}_{j})$$
 
