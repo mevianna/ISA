@@ -3,6 +3,10 @@
 
 **Support Vector Machines (SVM)** é uma técnica de aprendizado de máquina supervisionado muito utilizada na categorização de textos, na análise de imagens e na bioinformática. Foi fundamentada pela **teoria de aprendizado estatístico (TAE)** criada por Vapnik, que estabelece princípios para a obtenção de classificadores com boa generalização.
 
+> [!NOTE]
+> Generalização é definida como a capacidade do classificador de prever corretamente a classe de novos dados não apresentados previamente
+
+
 ---
 
 ## Limites no Risco Esperado
@@ -17,7 +21,7 @@ $$R(f)\le R_{emp}(f)+\sqrt{\frac{h(ln(2n/h)+1)-ln(\theta/4)}{n}}$$
 
 * **$R(f)$ Risco Real (ou Risco Esperado)**: É a taxa de erro verdadeira do classificador f em toda a população de dados. É o que buscamos minimizar, mas é desconhecido.
 * **$R_{emp}(f)$ Risco Empírico (ou Erro de Treinamento)**: É o erro que o classificador f cometeu no conjunto de treinamento de n amostras.
-* **$h$ (Dimensão VC)**: Dimensão Vapnik-Chervonenkis. É uma medida da complexidade ou capacidade da classe de funções à qual o classificador f pertence. Quanto maior $h$, mais complexo é o modelo, maior a chance de **overfitting** (o Risco Empírico $R_{emp}(f)$ é baixo, mas o Termo de Capacidade é alto).
+* **$h$ (Dimensão VC)**: É uma medida da complexidade ou capacidade da classe de funções à qual o classificador f pertence. Quanto maior $h$, mais complexo é o modelo, maior a chance de **overfitting** (o Risco Empírico $R_{emp}(f)$ é baixo, mas o Termo de Capacidade é alto).
 * **$n$ (Tamanho da Amostra)**: O número de exemplos no conjunto de treinamento.
 * **$\theta$ (Probabilidade de Falha)**: É um valor pequeno $(\theta\in[0,1])$ que define a confiança da cota. A desigualdade é válida com probabilidade de $1-\theta$.
   - Se você escolhe $\theta=0.05$, a cota é garantida com 95% de probabilidade.
@@ -33,10 +37,13 @@ Para que o classificador $f^*$ seja eficaz, o objetivo principal é minimizar o 
 
 ## SVMs com Margens Rígidas
 
-> [!NOTE]
-> $1/||\mathbf{w}||$ é a distância mínima entre o hiperplano separador e os dados de treinamento. Essa distância é definida como a margem geométrica do classificador linear.
+> [!IMPORTANT]
+> O objetivo principal da SVM é encontrar o hiperplano que não apenas separe as classes, mas que também tenha a maior distância possível para os pontos de dados mais próximos de cada classe (pontos de suporte). Essa distância é chamada de margem.
 
 <img src="https://i.postimg.cc/xjkSbRvG/1-a46Tz42Epfu3ys-Fnv-Wpz-WQ.gif" alt="Hiperplano SVM maximizando a margem" width="700" />
+
+> [!NOTE]
+> $1/||\mathbf{w}||$ é a distância mínima entre o hiperplano separador e os dados de treinamento. Essa distância é definida como a margem geométrica do classificador linear.
 
 O princípio da TAE estabelece que um classificador ideal deve minimizar o Risco Empírico (erro de treinamento) e pertencer a uma classe de funções de baixa complexidade (baixa Dimensão VC, $h$).
 
