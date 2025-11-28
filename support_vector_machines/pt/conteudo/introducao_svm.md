@@ -6,6 +6,17 @@
 > [!NOTE]
 > Generalização é definida como a capacidade do classificador de prever corretamente a classe de novos dados não apresentados previamente
 
+---
+
+## Objetivo Principal
+
+> [!IMPORTANT]
+> O objetivo principal da SVM é encontrar o hiperplano que não apenas separe as classes, mas que também tenha a maior distância possível para os pontos de dados mais próximos de cada classe (pontos de suporte). Essa distância é chamada de margem.
+
+<img src="https://i.postimg.cc/xjkSbRvG/1-a46Tz42Epfu3ys-Fnv-Wpz-WQ.gif" alt="Hiperplano SVM maximizando a margem" width="700" />
+
+> [!NOTE]
+> $1/||\mathbf{w}||$ é a distância mínima entre o hiperplano separador e os dados de treinamento. Essa distância é definida como a margem geométrica do classificador linear.
 
 ---
 
@@ -37,19 +48,13 @@ Para que o classificador $f^*$ seja eficaz, o objetivo principal é minimizar o 
 
 ## SVMs com Margens Rígidas
 
-> [!IMPORTANT]
-> O objetivo principal da SVM é encontrar o hiperplano que não apenas separe as classes, mas que também tenha a maior distância possível para os pontos de dados mais próximos de cada classe (pontos de suporte). Essa distância é chamada de margem.
-
-<img src="https://i.postimg.cc/xjkSbRvG/1-a46Tz42Epfu3ys-Fnv-Wpz-WQ.gif" alt="Hiperplano SVM maximizando a margem" width="700" />
-
-> [!NOTE]
-> $1/||\mathbf{w}||$ é a distância mínima entre o hiperplano separador e os dados de treinamento. Essa distância é definida como a margem geométrica do classificador linear.
-
 O princípio da TAE estabelece que um classificador ideal deve minimizar o Risco Empírico (erro de treinamento) e pertencer a uma classe de funções de baixa complexidade (baixa Dimensão VC, $h$).
 
 As SVMs lineares implementam a minimização da Dimensão VC ($h$) através da **maximização da margem geométrica ($\rho$)** $\rho\propto1/||\mathbf{w}||$. Portanto, maximizar a margem é equivalente a minimizar a norma $||\mathbf{w}||$.
 
 $$Minim_{\mathbf{w}, b} \frac{1}{2} ||\mathbf{w}||^2$$
+
+<img src="https://i.postimg.cc/yxvnh5c0/Captura-de-tela-de-2025-11-27-22-59-30.png" alt="Hiperplano SVM maximizando a margem" width="700" />
 
 > [!NOTE]
 > A minimização de $\frac{1}{2} ||\mathbf{w}||^2$ (em vez de $||\mathbf{w}||$) garante que a função objetivo seja convexa e diferenciável, facilitando a solução por métodos padrão de otimização quadrática.
@@ -58,7 +63,7 @@ $$Minim_{\mathbf{w}, b} \frac{1}{2} ||\mathbf{w}||^2$$
 
 ## Minimização do Risco Estrutural (Margens Suaves)
 
-Para lidar com dados ruidosos ou não linearmente separáveis, as SVMs adotam o **Princípio da Minimização do Risco Estrutural (MRS)**.
+Para lidar com a imperfeição e sobreposição dos dados, as SVMs adotam o **Princípio da Minimização do Risco Estrutural (MRS)**.
 
 As **Margens Suaves** reformulam o problema introduzindo as **Variáveis de Folga ($\xi_i$)** para penalizar erros de classificação e violações da margem.
 
@@ -69,8 +74,10 @@ $$Minim_{\mathbf{w},b,\xi}\frac{1}{2}||\mathbf{w}||^{2}+C(\sum_{i=1}^{n}\xi_{i})
 * **Termo $\frac{1}{2}||\mathbf{w}||^2$**: Controla a complexidade (**Maximização da Margem**).
 * **Termo $C\sum\xi_i$**: Controla o erro de treinamento (**Minimização do Erro Marginal**).
 
+<img src="https://i.postimg.cc/yxvnh5c0/Captura-de-tela-de-2025-11-27-22-59-30.png" alt="Hiperplano SVM maximizando a margem" width="700" />
+
 > [!NOTE]
-> A **Variável de Folga ($\xi_i$)** é uma invenção da SVM para permitir que o classificador funcione mesmo quando os dados não são perfeitamente separáveis (ou contêm ruído).
+> A **Variável de Folga ($\xi_i$)** é uma invenção da SVM para permitir que o classificador funcione mesmo quando os dados não são perfeitamente separáveis (ou contêm ruído). Elas permitem que a SVM tolere essas imperfeições, penalizando os pontos que caem dentro da margem ou são classificados incorretamente, em vez de exigir uma separação rígida.
 
 ---
 
@@ -80,7 +87,13 @@ A imagem abaixo demonstra o **Teorema de Cover**, que afirma que se os dados for
 
 [![Captura-de-tela-de-2025-11-26-22-30-19.png](https://i.postimg.cc/jjhFGWz2/Captura-de-tela-de-2025-11-26-22-30-19.png)](https://postimg.cc/jWLcfS3Y)
 
-Para o conjunto de dados não linear (círculos e triângulos) é observável que não podem ser separados por uma única linha reta. A solução para separar as duas classes, seria uma fronteira de decisão circular (ou elíptica/curva).
+a) Para o conjunto de dados não linear (círculos e triângulos) é observável que não podem ser separados por uma única linha reta. 
+
+b) A solução para separar as duas classes, seria uma fronteira de decisão circular (ou elíptica/curva).
+
+c) Transformação dos dados para um novo espaço de dimensão 3D onde o hiperplano separador é um plano.
+
+<img src="https://i.postimg.cc/y6FM3YGM/Captura-de-tela-de-2025-11-27-22-58-00.png" alt="plano 3D" width="700" />
 
 > [!NOTE]
 > Uma SVM linear simples não conseguiria encontrar essa fronteira.
@@ -110,3 +123,7 @@ Se alguém mudar de lugar e ficar mais perto da corda, a posição dela pode mud
 
 Este projeto utiliza conceitos descritos no artigo "Uma Introdução às Support Vector Machines" (Ana Carolina Lorena e André C. P. L. F. de Carvalho).
 https://www.researchgate.net/publication/36409205_Uma_Introducao_as_Support_Vector_Machines
+
+Support Vector Machine: Entenda o algoritmo SVM: https://www.blog.psicometriaonline.com.br/support-vector-machine-entenda-o-algoritmo-svm/
+
+A Gentle Introduction to Support Vector Machines: https://www.kdnuggets.com/2023/07/gentle-introduction-support-vector-machines.html
