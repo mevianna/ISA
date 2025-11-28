@@ -9,7 +9,7 @@ The two algorithm to solve the problems mentions are:
 [![image.png](https://i.postimg.cc/9Mj8P6BS/image.png)](https://postimg.cc/McdmqrNb)
 
 ## Support Vector Classifier (SVC)
-In a context of binary classification, where the target **y** has two classes, like logistic regression, SVC try to find the best fit line (decision boundary) to separate the two classes.   
+In a context of binary classification, where the target **y** has two classes, like **logistic regression**, SVC try to find the best fit line (decision boundary) to separate the two classes.   
 
 [![image.png](https://i.postimg.cc/PNG9cCW0/image.png)](https://postimg.cc/RJRgJVbT)
 
