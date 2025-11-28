@@ -54,7 +54,7 @@ As SVMs lineares implementam a minimização da Dimensão VC ($h$) através da *
 
 $$Minim_{\mathbf{w}, b} \frac{1}{2} ||\mathbf{w}||^2$$
 
-<img src="https://i.postimg.cc/yxvnh5c0/Captura-de-tela-de-2025-11-27-22-59-30.png" alt="Hiperplano SVM maximizando a margem" width="700" />
+<img src="https://i.postimg.cc/GtYGtDtw/Captura-de-tela-de-2025-11-28-10-14-44.png" alt="Hiperplano SVM maximizando a margem" width="700" />
 
 > [!NOTE]
 > A minimização de $\frac{1}{2} ||\mathbf{w}||^2$ (em vez de $||\mathbf{w}||$) garante que a função objetivo seja convexa e diferenciável, facilitando a solução por métodos padrão de otimização quadrática.
@@ -119,7 +119,7 @@ Se alguém mudar de lugar e ficar mais perto da corda, a posição dela pode mud
 
 ---
 
-### Referência
+### Referências
 
 Este projeto utiliza conceitos descritos no artigo "Uma Introdução às Support Vector Machines" (Ana Carolina Lorena e André C. P. L. F. de Carvalho).
 https://www.researchgate.net/publication/36409205_Uma_Introducao_as_Support_Vector_Machines
