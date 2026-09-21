@@ -67,7 +67,7 @@ Comprime qualquer valor real para o intervalo entre 0 e 1. É a função padrão
 Se o valor for negativo retorna 0, caso contrário, retorna o próprio valor.
 
 $$
-\operatorname{ReLU}(z)=\max(0,z)
+\mathrm{ReLU}(z)=\max(0,z)
 $$
 
 #### Tanh
@@ -114,4 +114,4 @@ O código produzido sobre neurônio linear está no notebook [Neurônio e funç�
 
 | | | |
 |:---:|:---:|:---:|
-| [<img loading=lazy src=https://avatars.githubusercontent.com/u/197432407?v=4 width=115><br><sub>Beatriz Schuelter Tartare</sub>](https://github.com/beastartare) | [<img loading=lazy src=https://avatars.githubusercontent.com/u/199311034?v=4 width=115><br><sub>Clara Marcela Grossl</sub>](https://github.com/Clara-M-Grossl) | [<img loading=lazy src=https://avatars.githubusercontent.com/u/105316221?v=4 width=115><br><sub>Vinícius Muchulski</sub>](https://github.com/vini-muchulski) |
+| [<img loading="lazy" src="https://avatars.githubusercontent.com/u/197432407?v=4" width="115"><br><sub>Beatriz Schuelter Tartare</sub>](https://github.com/beastartare) | [<img loading="lazy" src="https://avatars.githubusercontent.com/u/199311034?v=4" width="115"><br><sub>Clara Marcela Grossl</sub>](https://github.com/Clara-M-Grossl) | [<img loading="lazy" src="https://avatars.githubusercontent.com/u/105316221?v=4" width="115"><br><sub>Vinícius Muchulski</sub>](https://github.com/vini-muchulski) |

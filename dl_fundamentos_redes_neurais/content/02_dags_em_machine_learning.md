@@ -179,7 +179,7 @@ Esses grafos geralmente possuem estrutura DAG.
 Considere:
 
 $$
-y=\operatorname{sigmoid}(wx+b)
+y=\mathrm{sigmoid}(wx+b)
 $$
 
 O fluxo computacional seria:
@@ -353,4 +353,4 @@ Com o crescimento do Deep Learning e da IA moderna, os DAGs continuam sendo esse
 
 | | |
 |:---:|:---:|
-| <img loading=lazy src=images/colaboradores/adilson_vissoli.svg width=115><br><sub>Adilson Vissoli</sub> | [<img loading=lazy src=https://avatars.githubusercontent.com/u/207051125?v=4 width=115><br><sub>Arthur Bogoni</sub>](https://github.com/ArthurBogoni) |
+| <img loading="lazy" src="images/colaboradores/adilson_vissoli.svg" width="115"><br><sub>Adilson Vissoli</sub> | [<img loading="lazy" src="https://avatars.githubusercontent.com/u/207051125?v=4" width="115"><br><sub>Arthur Bogoni</sub>](https://github.com/ArthurBogoni) |

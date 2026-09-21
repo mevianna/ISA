@@ -164,4 +164,4 @@ No Forward Pass, percorremos o grafo na ordem definida pelas operações para ob
 
 | | |
 |:---:|:---:|
-| [<img loading=lazy src=https://avatars.githubusercontent.com/u/207051125?v=4 width=115><br><sub>Arthur Bogoni</sub>](https://github.com/ArthurBogoni) | [<img loading=lazy src=https://avatars.githubusercontent.com/u/112569754?v=4 width=115><br><sub>Alice Motin</sub>](https://github.com/AliceMotin) |
+| [<img loading="lazy" src="https://avatars.githubusercontent.com/u/207051125?v=4" width="115"><br><sub>Arthur Bogoni</sub>](https://github.com/ArthurBogoni) | [<img loading="lazy" src="https://avatars.githubusercontent.com/u/112569754?v=4" width="115"><br><sub>Alice Motin</sub>](https://github.com/AliceMotin) |
