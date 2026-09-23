@@ -18,7 +18,7 @@ Embora seja utilizado diretamente em Python, a maior parte do código interno re
 - **Paralelismo SIMD:** O NumPy aproveita instruções SIMD (*Single Instruction, Multiple Data*) das arquiteturas modernas de CPU para processar múltiplos elementos simultaneamente em hardware.
 
 ### 1.2.2  Armazenamento Homogêneo e Eficiência de Memória
-- **Armazenamento Contíguo:** Enquanto as listas do Python armazenam ponteiros para objetos espalhados pela memória [44, 50], o NumPy armazena elementos em **blocos contíguos de memória** .
+- **Armazenamento Contíguo:** Enquanto as listas do Python armazenam ponteiros para objetos espalhados pela memória, o NumPy armazena elementos em **blocos contíguos de memória** .
 - **Localidade de Referência:** Esse arranjo contíguo otimiza a *localidade de referência*, permitindo que a CPU carregue e processe blocos inteiros de dados na memória cache de forma ultraeficiente.
 - **Dados Homogêneos:** Todos os elementos de um `ndarray` devem ser rigorosamente do mesmo tipo numérico (como `int32`, `float64`), o que economiza memória ao eliminar metadados individuais por elemento. Caso tipos mistos sejam fornecidos, o NumPy realiza *upcasting* automático para manter a consistência.
 
