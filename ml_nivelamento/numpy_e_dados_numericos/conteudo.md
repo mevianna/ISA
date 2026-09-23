@@ -50,6 +50,14 @@ O NumPy serve como o motor infraestrutural subjacente para praticamente todas as
 
 ---
 
+## Referências
+
+- **Bisht, K. S.** (2022). *NumPy: From Basic to Advance*.
+- **Idris, I.** (2014). *Learning NumPy Array*. Packt Publishing.
+- **Khonprakhon, S.** (2023). *NumPy Mastery: 150 Practical Examples in Python*.
+- **NumPy Documentation**. *NumPy Official Technical Manuals and User Guides*.
+- **Sohail, M.** (2025). *NumPy for Data Analysis and Data Science: A Complete Guide*.
+- **Yildiz, M.** (2024). *Mastering NumPy: The Ultimate Guide to Data Manipulation in Python*.
 
 
 
