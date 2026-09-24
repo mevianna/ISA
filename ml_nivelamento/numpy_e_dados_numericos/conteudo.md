@@ -54,6 +54,12 @@ O NumPy serve como o motor infraestrutural subjacente para praticamente todas as
 
 ---
 
+
+
+
+
+
+
 ## Referências
 
 - **Bisht, K. S.** (2022). *NumPy: From Basic to Advance*.
