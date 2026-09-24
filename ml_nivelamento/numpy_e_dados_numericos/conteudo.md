@@ -1,4 +1,8 @@
 # NumPy e Dados Numéricos
+
+## Objetivo: 
+Finalizar todo tema e criar um arquivo .ipynb no Google Colab e deixá-lo disponível no Github
+
 ## 1 Introdução ao NumPy e Arrays 
 ###  O que é NumPy e por que usá-lo 
 
