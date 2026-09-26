@@ -61,7 +61,7 @@ var(vetor)
 ```
 [Out]
 ```text
-6.59504132231405
+6.231404958677686
 ```
 
 Para comparar o resultado obtido, é utilizada a biblioteca Numpy, que permite calcular a variância tanto de um vetor quanto de uma matriz, podendo ainda especificar o eixo pelo parâmetro axis:
@@ -330,7 +330,7 @@ np.std(matriz, ddof=1), df.std(ddof=1, axis=None) # desvio padrão amostral para
 ```
 [Out]
 ```text
-np.std(matriz, ddof=1), df.std(ddof=1, axis=None) # desvio padrão amostral para todos os elementos da matriz
+(np.float64(2.3979157616563596), np.float64(2.3979157616563596))
 ```
 
 ### <a id='h3_2'></a> Quartis
