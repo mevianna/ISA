@@ -175,6 +175,51 @@ print("Amostra Aleatória:", amostra)
 ```
 
 
+# 1.3 Entendendo o `dtype` no NumPy
+
+O **`dtype`** (*data type*) é o atributo que define o tipo exato de dado e a quantidade de memória ocupada por cada elemento dentro de um `ndarray`. 
+
+Como o NumPy exige que os arrays sejam **homogêneos** (todos os elementos compartilham o mesmo tipo de dado), o `dtype` garante alocação contígua de memória e alta eficiência de processamento. É possível definir o tipo durante a criação do array ou converter um array existente usando o método **`.astype()`**.
+
+---
+
+## 1.3.1 Exemplos Práticos de `dtype` e `.astype()`
+
+### 1.3.1.1. Conversão para Valores Booleanos (`bool`)
+Ao converter um array numérico para booleano com `.astype(bool)`, o valor `0` torna-se `False`, enquanto qualquer valor diferente de zero torna-se `True`. Essa técnica é amplamente utilizada para criar máscaras lógicas de filtragem.
+
+```python
+import numpy as np
+
+# Array com valores inteiros (incluindo zeros)
+dados_num = np.array([0, 1, 5, 0, 10])
+
+# Conversão para tipo booleano
+mascara_bool = dados_num.astype(bool)
+
+print("Array original:", dados_num)
+print("Array Booleano:", mascara_bool)
+print("Tipo de dado:", mascara_bool.dtype)  # Output: bool
+```
+
+---
+
+### 1.3.1.2. Trabalhando com Datas e Tempo (`datetime64`)
+O NumPy possui suporte nativo a dados temporais com o tipo **`datetime64`**, permitindo especificar a precisão desejada, como dias (`[D]`), meses (`[M]`) ou anos (`[Y]`), além de realizar aritmética de datas com `np.timedelta64`.
+
+```python
+import numpy as np
+
+# Criação de array de datas com precisão diária [D]
+datas = np.array(['2026-01-01', '2026-02-01', '2026-03-01'], dtype='datetime64[D]')
+
+# Operação aritmética com datas (adicionando 10 dias)
+proximas_datas = datas + np.timedelta64(10, 'D')
+
+print("Datas iniciais:", datas)
+print("Datas + 10 dias:", proximas_datas)
+print("Tipo de dado:", datas.dtype)  # Output: datetime64[D]
+```
 
 
 
