@@ -221,6 +221,294 @@ print("Datas + 10 dias:", proximas_datas)
 print("Tipo de dado:", datas.dtype)  # Output: datetime64[D]
 ```
 
+---
+
+
+# 2 Dimensões, Shape, Indexação e Slicing no NumPy
+
+Compreender a estrutura de um `ndarray` e saber navegar pelos seus elementos são habilidades fundamentais no NumPy. Este guia aborda a inspeção de dimensões, formato e tamanho de arrays, além das técnicas de acesso, fatiamento e modificação de dados em 1D e 2D.
+
+---
+
+## 2.1. Atributos Estruturais: `ndim`, `shape` e `size`
+
+Antes de manipular um array, é essencial inspecionar sua estrutura através de seus atributos nativos.
+
+### 2.1.1. `ndim` (Número de Dimensões / Eixos)
+O atributo `.ndim` indica a quantidade de dimensões (ou eixos) do array.
+* **1D (Vetor):** 1 eixo.
+* **2D (Matriz):** 2 eixos (linhas e colunas).
+* **3D+ (Tensor):** 3 ou mais eixos.
+
+```python
+import numpy as np
+
+# Exemplo 1: Comparando dimensões de diferentes estruturas
+vetor = np.array([10, 20, 30])
+matriz = np.array([[1, 2], [3, 4]])
+tensor = np.array([[[1, 2], [3, 4]], [[5, 6], [7, 8]]])
+
+print("Vetor ndim:", vetor.ndim)   # Output: 1
+print("Matriz ndim:", matriz.ndim) # Output: 2
+print("Tensor ndim:", tensor.ndim) # Output: 3
+```
+
+```python
+# Exemplo 2: Verificando dimensões após alteração de formato
+arr = np.arange(12) # Array 1D com 12 elementos
+matriz_respeitada = arr.reshape(3, 4) # Transformado em Matriz 2D (3x4)
+
+print("Array original ndim:", arr.ndim)                # Output: 1
+print("Array reformatado ndim:", matriz_respeitada.ndim) # Output: 2
+```
+
+---
+
+### 2.1.2. `shape` (Formato das Dimensões)
+O atributo `.shape` retorna uma tupla de inteiros indicando o tamanho do array ao longo de cada eixo. Para uma matriz 2D, o formato é `(linhas, colunas)`.
+
+```python
+import numpy as np
+
+# Exemplo 1: Identificando o formato de vetores e matrizes
+vetor = np.array([1, 2, 3, 4, 5])
+matriz = np.array([[10, 20, 30], [40, 50, 60]])
+
+print("Shape do vetor:", vetor.shape)   # Output: (5,)  -> 1D com 5 elementos
+print("Shape da matriz:", matriz.shape) # Output: (2, 3) -> 2 linhas e 3 colunas
+```
+
+```python
+# Exemplo 2: Trabalhando com matrizes tridimensionais (Tensores)
+# Formato: (blocos/fatias, linhas, colunas)
+tensor_3d = np.zeros((2, 3, 4))
+
+print("Shape do Tensor 3D:", tensor_3d.shape) # Output: (2, 3, 4)
+```
+
+---
+
+### 2.1.3. `size` (Quantidade Total de Elementos)
+O atributo `.size` retorna o número total de elementos armazenados no array (equivalente à multiplicação dos valores da tupla `.shape`).
+
+```python
+import numpy as np
+
+# Exemplo 1: Calculando o total de elementos em matrizes
+matriz_a = np.array([[1, 2, 3], [4, 5, 6]]) # 2x3 = 6 elementos
+matriz_b = np.ones((4, 5))                  # 4x5 = 20 elementos
+
+print("Total elementos Matriz A:", matriz_a.size) # Output: 6
+print("Total elementos Matriz B:", matriz_b.size) # Output: 20
+```
+
+```python
+# Exemplo 2: Relação entre shape e size em reorganização de dados
+dados = np.arange(24)
+matriz_4x6 = dados.reshape(4, 6)
+
+# O tamanho total de elementos permanece constante independente do formato
+print("Tamanho do vetor original:", dados.size)         # Output: 24
+print("Tamanho após reshape (4x6):", matriz_4x6.size)   # Output: 24
+```
+
+---
+
+## 2.2. Indexação (Acesso a Elementos)
+
+A indexação no NumPy utiliza base zero (`0`). Em arrays multidimensionais, o acesso é feito passando os índices separados por vírgula em um único par de colchetes: `array[linha, coluna]`.
+
+### 2.2.1. Indexação 1D
+```python
+import numpy as np
+
+arr_1d = np.array([10, 20, 30, 40, 50])
+
+# Exemplo 1: Acesso simples por índices positivos e negativos
+primeiro = arr_1d[0]   # Primeiro elemento (10)
+ultimo = arr_1d[-1]    # Último elemento (50)
+penultimo = arr_1d[-2] # Penúltimo elemento (40)
+
+print("Primeiro:", primeiro, "| Último:", ultimo, "| Penúltimo:", penultimo)
+```
+
+```python
+# Exemplo 2: Acesso múltiplo usando Fancy Indexing (lista de índices)
+indices = [0, 2, 4]
+subconjunto = arr_1d[indices]
+
+print("Elementos nos índices [0, 2, 4]:", subconjunto) # Output: [10 30 50]
+```
+
+### 2.2.2. Indexação 2D
+```python
+import numpy as np
+
+matriz_2d = np.array([
+    [10, 20, 30],
+    [40, 50, 60],
+    [70, 80, 90]
+])
+
+# Exemplo 1: Acesso direto formato [linha, coluna]
+elem_centro = matriz_2d[1, 1] # Segunda linha (índice 1), segunda coluna (índice 1) -> 50
+elem_topo_dir = matriz_2d[0, 2] # Primeira linha (índice 0), terceira coluna (índice 2) -> 30
+
+print("Elemento central (1,1):", elem_centro)
+print("Topo direito (0,2):", elem_topo_dir)
+```
+
+```python
+# Exemplo 2: Combinando índices positivos e negativos em matrizes
+# Pegando o último elemento da última linha
+ultimo_elemento = matriz_2d[-1, -1] # Output: 90
+
+# Pegando o primeiro elemento da última linha
+primeiro_ultima_linha = matriz_2d[-1, 0] # Output: 70
+
+print("Último elemento (-1, -1):", ultimo_elemento)
+print("Primeiro elemento da última linha (-1, 0):", primeiro_ultima_linha)
+```
+
+---
+
+## 2.3. Slicing (Fatiamento)
+
+O fatiamento extrai subconjuntos de um array usando a sintaxe `[início:fim:passo]`.
+* `início`: Índice inicial (inclusivo).
+* `fim`: Índice final (exclusivo).
+* `passo`: Incremento entre os elementos (opcional, padrão é 1).
+
+> ⚠️ **Importante:** O fatiamento no NumPy cria uma **Visão (View)** e não uma cópia do array original. Alterar a fatia altera o array de origem.
+
+### 2.3.1. Slicing 1D
+```python
+import numpy as np
+
+vetor = np.array([0, 10, 20, 30, 40, 50, 60, 70, 80, 90])
+
+# Exemplo 1: Intervalo simples e uso de passo
+sub_intervalo = vetor[2:6]     # Do índice 2 ao 5 -> [20, 30, 40, 50]
+elementos_pares = vetor[::2]   # Do início ao fim, de 2 em 2 -> [0, 20, 40, 60, 80]
+
+print("Fatia [2:6]:", sub_intervalo)
+print("Passo de 2 [::2]:", elementos_pares)
+```
+
+```python
+# Exemplo 2: Omissão de limites e inversão de vetor
+primeiros_quatro = vetor[:4]  # Do início até o índice 3 -> [0, 10, 20, 30]
+vetor_invertido = vetor[::-1] # Inverte todo o vetor
+
+print("Primeiros 4 elementos [:4]:", primeiros_quatro)
+print("Vetor invertido [::-1]:", vetor_invertido)
+```
+
+### 2.3.2. Slicing 2D
+Em matrizes 2D, o fatiamento é aplicado separadamente nas linhas e colunas: `matriz[fatia_linhas, fatia_colunas]`.
+
+```python
+import numpy as np
+
+matriz = np.array([
+    [ 1,  2,  3,  4],
+    [ 5,  6,  7,  8],
+    [ 9, 10, 11, 12],
+    [13, 14, 15, 16]
+])
+
+# Exemplo 1: Extraindo submatrizes e colunas completas
+submatriz_centro = matriz[1:3, 1:3] # Linhas 1 e 2, Colunas 1 e 2
+terceira_coluna = matriz[:, 2]      # Todas as linhas (:), coluna no índice 2
+
+print("Submatriz central 2x2:\n", submatriz_centro)
+print("Terceira coluna como vetor 1D:", terceira_coluna)
+```
+
+```python
+# Exemplo 2: Seleção alternada de linhas e colunas (com passo)
+linhas_pares_colunas_impares = matriz[::2, 1::2]
+
+print("Linhas pares (0, 2) e colunas ímpares (1, 3):\n", linhas_pares_colunas_impares)
+```
+
+---
+
+## 2.4. Alteração de Elementos
+
+Arrays no NumPy são **mutáveis**. Podemos alterar valores individuais via indexação ou modificar regiões inteiras via slicing.
+
+### 2.4.1. Alteração via Indexação
+```python
+import numpy as np
+
+# Exemplo 1: Alterando valores individuais em vetor e matriz
+vetor = np.array([1, 2, 3, 4])
+vetor[0] = 99 # Substitui o primeiro elemento
+
+matriz = np.array([[10, 20], [30, 40]])
+matriz[1, 0] = 300 # Substitui o elemento na linha 1, coluna 0
+
+print("Vetor alterado:", vetor)
+print("Matriz alterada:\n", matriz)
+```
+
+```python
+# Exemplo 2: Atribuição pontual com múltiplos índices
+matriz_dados = np.zeros((3, 3), dtype=int)
+
+# Alterando elementos em posições específicas
+matriz_dados[0, 0] = 1
+matriz_dados[1, 1] = 5
+matriz_dados[2, 2] = 9
+
+print("Matriz diagonal alterada:\n", matriz_dados)
+```
+
+### 2.4.2. Alteração em Bloco (via Slicing) e o Conceito de View vs Copy
+```python
+import numpy as np
+
+# Exemplo 1: Alteração em bloco de uma linha ou coluna inteira
+matriz = np.array([
+    [10, 10, 10],
+    [20, 20, 20],
+    [30, 30, 30]
+])
+
+# Zerando a primeira coluna inteira
+matriz[:, 0] = 0
+
+# Substituindo toda a última linha por [99, 99, 99]
+matriz[-1, :] = 99
+
+print("Matriz modificada em bloco:\n", matriz)
+```
+
+```python
+# Exemplo 2: Demonstrando o efeito de View vs Cópia explícita (.copy())
+original = np.array([1, 2, 3, 4, 5])
+
+# Fatiamento cria uma VIEW (compartilha a mesma memória)
+fatia_view = original[1:4]
+fatia_view[0] = 999 # Altera também o array original!
+
+print("Original após alterar a VIEW:", original) # Output: [1, 999, 3, 4, 5]
+
+# Para evitar alterar o original, usa-se .copy()
+original_preservado = np.array([1, 2, 3, 4, 5])
+fatia_copia = original_preservado[1:4].copy()
+fatia_copia[0] = 888
+
+print("Original preservado com .copy():", original_preservado) # Output: [1, 2, 3, 4, 5]
+```
+
+
+
+
+
+
+___
 
 
 ## Referências
