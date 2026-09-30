@@ -505,6 +505,220 @@ print("Original preservado com .copy():", original_preservado) # Output: [1, 2, 
 
 
 
+# 3 Operações com Arrays no NumPy
+
+O NumPy transforma a computação matemática em Python ao aplicar operações diretamente sobre arrays inteiros de forma vetorizada. Esta seção cobre as operações aritméticas fundamentais, funções universais (*ufuncs*), o produto matricial da álgebra linear e os conceitos básicos de *broadcasting*.
+
+---
+
+## 3.1. Operações Aritméticas Básicas (`+`, `-`, `*`, `/`, `**`)
+
+Os operadores aritméticos padrão do Python (`+`, `-`, `*`, `/`, `**`) são sobrecarregados no NumPy para realizar cálculos elemento a elemento sem a necessidade de *loops* `for`.
+
+### Exemplo 1: Operações entre Array e Escalar
+Aplica uma constante matemática a todos os elementos do array individualmente.
+
+```python
+import numpy as np
+
+# Array 1D base
+dados = np.array([10, 20, 30, 40])
+
+# Aplicação de operadores com escalares
+soma = dados + 5          # [15, 25, 35, 45]
+subtracao = dados - 3     # [ 7, 17, 27, 37]
+multiplicacao = dados * 2 # [20, 40, 60, 80]
+divisao = dados / 4       # [2.5, 5. , 7.5, 10. ]
+potencia = dados ** 2     # [100, 400, 900, 1600]
+
+print("Soma (+5):", soma)
+print("Subtração (-3):", subtracao)
+print("Multiplicação (*2):", multiplicacao)
+print("Divisão (/4):", divisao)
+print("Potência (**2):", potencia)
+```
+
+### Exemplo 2: Operações Aritméticas entre Dois Arrays
+Quando dois arrays possuem o mesmo formato (*shape*), as operações ocorrem par a par entre os elementos de mesma posição.
+
+```python
+import numpy as np
+
+a = np.array([1, 2, 3, 4])
+b = np.array([10, 20, 30, 40])
+
+# Operações par a par (elemento a elemento)
+soma_arrays = a + b        # [11, 22, 33, 44]
+sub_arrays = b - a         # [ 9, 18, 27, 36]
+mult_arrays = a * b        # [10, 40, 90, 160]
+div_arrays = b / a         # [10., 10., 10., 10.]
+pot_arrays = a ** 2        # [ 1,  4,  9, 16]
+
+print("A + B:", soma_arrays)
+print("B - A:", sub_arrays)
+print("A * B:", mult_arrays)
+print("B / A:", div_arrays)
+```
+
+---
+
+## 3.2. Operações Elemento a Elemento (*Universal Functions - ufuncs*)
+
+As **`ufuncs`** são funções otimizadas em C que aplicam transformações matemáticas elemento a elemento sobre um `ndarray`. Elas são exponencialmente mais rápidas que funções nativas do Python aplicadas dentro de repetições.
+
+### Exemplo 1: Transformações Matemáticas (`sqrt`, `exp`, `log`, `sin`)
+Funções para raiz quadrada, exponencial, logaritmo natural e trigonometria.
+
+```python
+import numpy as np
+
+valores = np.array([1, 4, 9, 16], dtype=float)
+
+# Aplicação de ufuncs matemáticas
+raiz = np.sqrt(valores)     # [1., 2., 3., 4.]
+exponencial = np.exp(valores)# [e^1, e^4, e^9, e^16]
+logaritmo = np.log(valores) # Logaritmo natural (base e)
+seno = np.sin(valores)      # Seno em radianos
+
+print("Raiz Quadrada (np.sqrt):", raiz)
+print("Exponencial (np.exp):", exponencial)
+print("Logaritmo Natural (np.log):", logaritmo)
+print("Seno (np.sin):", seno)
+```
+
+### Exemplo 2: Tratamento Numérico (`abs`, `round`, `floor`, `ceil`)
+Funções para manipulação de sinal, arredondamento e módulo.
+
+```python
+import numpy as np
+
+decimais = np.array([-2.7, -1.2, 0.5, 3.8])
+
+# Funções de arredondamento e valor absoluto
+absoluto = np.abs(decimais)   # [2.7, 1.2, 0.5, 3.8]
+arredondado = np.round(decimais) # [-3., -1., 0., 4.]
+piso = np.floor(decimais)     # Arredonda para baixo: [-3., -2., 0., 3.]
+teto = np.ceil(decimais)      # Arredonda para cima:  [-2., -1., 1., 4.]
+
+print("Valor Absoluto (np.abs):", absoluto)
+print("Arredondado (np.round):", arredondado)
+print("Piso (np.floor):", piso)
+print("Teto (np.ceil):", teto)
+```
+
+---
+
+## 3.3. Operações entre Arrays: Produto Matricial (`@` e `np.dot`)
+
+É fundamental diferenciar a **multiplicação elemento a elemento (`*`)** do **produto matricial da álgebra linear**. No produto matricial entre duas matrizes $A_{(m \times n)}$ e $B_{(n \times p)}$, o número de colunas da primeira deve ser igual ao número de linhas da segunda, gerando uma matriz de dimensão $(m \times p)$.
+
+### Exemplo 1: Multiplicação Vetor-Vetor e Matriz-Vetor (Produto Escalar)
+Calcula a soma do produto dos elementos correspondentes.
+
+```python
+import numpy as np
+
+# Produto Escalar entre dois vetores 1D
+v1 = np.array([2, 3])
+v2 = np.array([4, 5])
+produto_escalar = np.dot(v1, v2)  # (2*4) + (3*5) = 8 + 15 = 23
+
+# Produto entre Matriz (2x3) e Vetor (3,)
+matriz = np.array([[1, 2, 3],
+                   [4, 5, 6]])
+vetor = np.array([1, 0, 2])
+
+resultado_mv = matriz @ vetor # [1*1 + 2*0 + 3*2, 4*1 + 5*0 + 6*2] = [7, 16]
+
+print("Produto Escalar (v1 . v2):", produto_escalar)
+print("Matriz (2x3) @ Vetor (3,):", resultado_mv)
+```
+
+### Exemplo 2: Produto Matricial entre Duas Matrizes 2D
+Utiliza o operador `@` ou a função `np.dot()` para multiplicar duas matrizes compatíveis.
+
+```python
+import numpy as np
+
+# Matriz A (2x3)
+A = np.array([[1, 2, 3],
+              [4, 5, 6]])
+
+# Matriz B (3x2)
+B = np.array([[7, 8],
+              [9, 1],
+              [2, 3]])
+
+# Produto Matricial A (2x3) x B (3x2) -> Resultado (2x2)
+C_operador = A @ B
+C_funcao = np.dot(A, B)
+
+print("Matriz A (2x3):\n", A)
+print("Matriz B (3x2):\n", B)
+print("Produto A @ B (2x2):\n", C_operador)
+```
+
+---
+
+## 3.4. Broadcasting Bem Básico
+
+O **Broadcasting** é um mecanismo do NumPy que permite realizar operações aritméticas entre arrays de dimensões ou formatos diferentes. O NumPy "estica" virtualmente o array menor ao longo da dimensão ausente ou de tamanho 1 para torná-lo compatível com o array maior, sem duplicar dados na memória.
+
+**Regra básica:** Duas dimensões são compatíveis quando são **iguais** ou quando **uma delas é igual a 1**.
+
+### Exemplo 1: Somar um Vetor Linha a Cada Linha de uma Matriz 2D
+Um vetor 1D de formato `(3,)` é expandido para todas as linhas de uma matriz de formato `(3, 3)`.
+
+```python
+import numpy as np
+
+# Matriz 3x3
+matriz = np.array([[10, 20, 30],
+                   [40, 50, 60],
+                   [70, 80, 90]])
+
+# Vetor 1D de 3 elementos
+vetor_linha = np.array([1, 2, 3])
+
+# O vetor_linha é somado a CADA uma das 3 linhas da matriz
+resultado = matriz + vetor_linha
+
+print("Matriz Original:\n", matriz)
+print("Vetor Linha:", vetor_linha)
+print("Resultado do Broadcasting:\n", resultado)
+# Linha 1: [10+1, 20+2, 30+3] -> [11, 22, 33]
+# Linha 2: [40+1, 50+2, 60+3] -> [41, 52, 63]
+# Linha 3: [70+1, 80+2, 90+3] -> [71, 82, 93]
+```
+
+### Exemplo 2: Operação entre Vetor Coluna `(3, 1)` e Vetor Linha `(1, 3)`
+Ambos os vetores são expandidos via broadcasting para formar uma matriz de saída `(3, 3)`.
+
+```python
+import numpy as np
+
+# Vetor Coluna (3 linhas, 1 coluna)
+coluna = np.array([[10],
+                   [20],
+                   [30]])
+
+# Vetor Linha (1 linha, 3 colunas)
+linha = np.array([1, 2, 3])
+
+# Broadcasting combina as dimensões gerando uma matriz (3, 3)
+matriz_gerada = coluna + linha
+
+print("Vetor Coluna (3x1):\n", coluna)
+print("Vetor Linha (1x3):", linha)
+print("Matriz Gerada via Broadcasting (3x3):\n", matriz_gerada)
+# [[10+1, 10+2, 10+3],
+#  [20+1, 20+2, 20+3],
+#  [30+1, 30+2, 30+3]]
+```
+
+
+
+
 
 
 
