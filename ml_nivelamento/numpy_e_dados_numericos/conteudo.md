@@ -718,6 +718,295 @@ print("Matriz Gerada via Broadcasting (3x3):\n", matriz_gerada)
 
 
 
+---
+# 4. Estatísticas Básicas no NumPy
+
+O NumPy oferece um conjunto completo de funções estatísticas altamente otimizadas para sumarização, agregação e análise descritiva de dados em `ndarrays`. 
+
+---
+
+## 4.1. Média (`np.mean`)
+
+A média aritmética calcula o valor central de um conjunto de dados somando todos os elementos e dividindo pela quantidade total.
+
+### Exemplo 1: Média simples de um vetor 1D
+```python
+import numpy as np
+
+# Notas de um estudante
+notas = np.array([7.5, 8.0, 6.5, 9.0, 10.0])
+
+media_notas = np.mean(notas)
+
+print("Notas:", notas)
+print("Média final:", media_notas)  # Output: 8.2
+```
+
+### Exemplo 2: Sensibilidade da média a valores discrepantes (outliers)
+```python
+import numpy as np
+
+# Salários em milhares de reais de uma pequena equipe
+salarios = np.array([3.0, 3.5, 4.0, 3.2, 50.0])  # 50.0 é um outlier (diretor)
+
+media_salarios = np.mean(salarios)
+
+print("Salários:", salarios)
+print("Média salarial (distorcida pelo outlier):", media_salarios)  # Output: 12.74
+```
+
+---
+
+## 4.2. Mediana (`np.median`)
+
+A mediana representa o valor central que divide os dados ordenados ao meio (50% acima, 50% abaixo). Diferente da média, ela é **robusta a outliers**.
+
+### Exemplo 1: Mediana em conjuntos com número ímpar e par de elementos
+```python
+import numpy as np
+
+# Conjunto ímpar (o elemento central exato)
+impar = np.array([10, 20, 30, 40, 50])
+mediana_impar = np.median(impar)  # 30.0
+
+# Conjunto par (média dos dois valores centrais: (20 + 30) / 2)
+par = np.array([10, 20, 30, 40])
+mediana_par = np.median(par)  # 25.0
+
+print("Mediana (ímpar):", mediana_impar)
+print("Mediana (par):", mediana_par)
+```
+
+### Exemplo 2: Comparação entre Média e Mediana na presença de Outliers
+```python
+import numpy as np
+
+# Preços de imóveis em centenas de milhares de reais
+imoveis = np.array([250, 270, 280, 300, 310, 5000])  # 5000 é uma mansão fora do padrão
+
+print("Média dos preços:", np.mean(imoveis))    # Output: 1068.33 (não reflete a maioria)
+print("Mediana dos preços:", np.median(imoveis))  # Output: 290.0 (medida representativa)
+```
+
+---
+
+## 4.3. Desvio Padrão (`np.std`)
+
+O desvio padrão ($\sigma$) mede o grau de dispersão ou variabilidade dos dados em relação à média.
+
+### Exemplo 1: Medição de dispersão e estabilidade
+```python
+import numpy as np
+
+# Desempenho de duas máquinas em produção (em minutos por tarefa)
+maquina_A = np.array([10, 10, 10, 10, 10])  # Baixa variabilidade
+maquina_B = np.array([2, 18, 5, 15, 10])    # Alta variabilidade
+
+print("Desvio Padrão Máquina A:", np.std(maquina_A))  # Output: 0.0
+print("Desvio Padrão Máquina B:", np.std(maquina_B))  # Output: 5.7271...
+```
+
+### Exemplo 2: Desvio Padrão Populacional vs Amostral (`ddof`)
+```python
+import numpy as np
+
+dados = np.array([12, 15, 18, 20, 25])
+
+# Por padrão, np.std usa ddof=0 (Desvio Padrão Populacional: N no denominador)
+std_populacional = np.std(dados)
+
+# Com ddof=1, calcula o Desvio Padrão Amostral (N - 1 no denominador)
+std_amostral = np.std(dados, ddof=1)
+
+print("Std Populacional (ddof=0):", std_populacional)  # Output: 4.4271...
+print("Std Amostral (ddof=1):", std_amostral)          # Output: 4.9497...
+```
+
+---
+
+## 4.4. Variância (`np.var`)
+
+A variância ($\sigma^2$) é a média dos quadrados dos desvios em relação à média. Ela representa a dispersão em unidades quadradas (sendo a raiz quadrada da variância igual ao desvio padrão).
+
+### Exemplo 1: Relação matemática entre Variância e Desvio Padrão
+```python
+import numpy as np
+
+temperaturas = np.array([22.5, 24.0, 21.0, 25.5, 23.0])
+
+variancia = np.var(temperaturas)
+desvio_padrao = np.std(temperaturas)
+
+print("Variância:", variancia)                      # Output: 2.3
+print("Desvio Padrão:", desvio_padrao)              # Output: 1.5165...
+print("Raiz quadrada da Variância:", np.sqrt(variancia))  # Igual ao desvio padrão!
+```
+
+### Exemplo 2: Variância amostral (`ddof=1`)
+```python
+import numpy as np
+
+amostra_vendas = np.array([100, 120, 110, 150, 130])
+
+var_amostral = np.var(amostra_vendas, ddof=1)
+
+print("Variância Amostral:", var_amostral)  # Output: 370.0
+```
+
+---
+
+## 4.5. Mínimo e Máximo (`np.min` e `np.max`)
+
+As funções `np.min()` e `np.max()` identificam os valores extremos em um conjunto de dados.
+
+### Exemplo 1: Cálculo da Amplitude Térmica (`max - min`)
+```python
+import numpy as np
+
+temperaturas_dia = np.array([14.2, 18.5, 25.0, 28.4, 21.1, 16.0])
+
+minimo = np.min(temperaturas_dia)
+maximo = np.max(temperaturas_dia)
+amplitude = maximo - minimo
+
+print(f"Mínima: {minimo}°C | Máxima: {maximo}°C")
+print(f"Amplitude Térmica: {amplitude}°C")  # Output: 14.2°C
+```
+
+### Exemplo 2: Encontrando limites em uma Matriz 2D
+```python
+import numpy as np
+
+matriz_imagem = np.array([
+    [12, 150, 200],
+    [0,  255, 180],
+    [45,  90, 210]
+])
+
+print("Pixel de menor intensidade:", np.min(matriz_imagem))  # Output: 0
+print("Pixel de maior intensidade:", np.max(matriz_imagem))  # Output: 255
+```
+
+---
+
+## 4.6. Soma (`np.sum`)
+
+A função `np.sum()` realiza a adição de elementos de um array, podendo também ser utilizada para contagem lógica e somas acumuladas.
+
+### Exemplo 1: Soma Total e Soma Acumulada (`np.cumsum`)
+```python
+import numpy as np
+
+vendas_diarias = np.array([100, 150, 200, 80, 120])
+
+soma_total = np.sum(vendas_diarias)
+soma_acumulada = np.cumsum(vendas_diarias)  # Evolução do faturamento dia a dia
+
+print("Faturamento Total:", soma_total)          # Output: 650
+print("Faturamento Acumulado:", soma_acumulada)  # Output: [100, 250, 450, 530, 650]
+```
+
+### Exemplo 2: Soma de Condições Booleanas (Contagem de Ocorrências)
+```python
+import numpy as np
+
+idades = np.array([15, 22, 17, 30, 18, 12, 45])
+
+# Expressão booleana retorna [False, True, False, True, True, False, True]
+maiores_de_idade = idades >= 18
+
+# np.sum trata True como 1 e False como 0
+total_maiores = np.sum(maiores_de_idade)
+
+print("Total de maiores de idade:", total_maiores)  # Output: 4
+```
+
+---
+
+## 4.7. Índices de Mínimo e Máximo (`np.argmin` e `np.argmax`)
+
+Em vez de retornarem os valores em si, `np.argmin()` e `np.argmax()` retornam os **índices** (posições) onde ocorrem o menor e o maior valor.
+
+### Exemplo 1: Localizando posições críticas em Vetores 1D
+```python
+import numpy as np
+
+precos_acao = np.array([45.0, 42.5, 39.0, 48.0, 51.5, 40.0])
+
+idx_menor_preco = np.argmin(precos_acao)
+idx_maior_preco = np.argmax(precos_acao)
+
+print(f"Dia de compra ideal (Menor preço): Dia {idx_menor_preco} (R$ {precos_acao[idx_menor_preco]})")
+print(f"Dia de venda ideal (Maior preço): Dia {idx_maior_preco} (R$ {precos_acao[idx_maior_preco]})")
+```
+
+### Exemplo 2: Localização de elemento em Matriz 2D com `np.unravel_index`
+```python
+import numpy as np
+
+matriz_vendas = np.array([
+    [100, 250, 300],
+    [400, 150, 600],
+    [200, 350, 120]
+])
+
+# argmax em matriz 2D retorna o índice 'achatado' (flattened)
+idx_achatado = np.argmax(matriz_vendas)  # Output: 5
+
+# Converte o índice achatado na coordenada (linha, coluna)
+coordenada = np.unravel_index(idx_achatado, matriz_vendas.shape)
+
+print("Índice achatado do ponto máximo:", idx_achatado)
+print("Coordenada (linha, coluna) do ponto máximo:", coordenada)  # Output: (1, 2)
+```
+
+---
+
+## 4.8. Operações ao Longo dos Eixos (`axis=0` e `axis=1`)
+
+Ao trabalhar com matrizes (2D) ou tensores (3D+), o parâmetro `axis` especifica a direção em que a operação estatística é executada:
+* **`axis=0`**: Executa a operação **verticalmente** (ao longo das linhas, reduzindo por colunas).
+* **`axis=1`**: Executa a operação **horizontalmente** (ao longo das colunas, reduzindo por linhas).
+
+### Exemplo 1: Agregação por Colunas vs Agregação por Linhas
+```python
+import numpy as np
+
+# Matriz 3x3: Linhas = Alunos | Colunas = Provas (P1, P2, P3)
+notas_turma = np.array([
+    [8.0, 7.0, 9.0],  # Aluno 0
+    [5.0, 6.0, 4.0],  # Aluno 1
+    [10.0, 9.5, 9.0]  # Aluno 2
+])
+
+# Média de cada prova (ao longo das colunas -> axis=0)
+media_provas = np.mean(notas_turma, axis=0)
+
+# Média de cada aluno (ao longo das linhas -> axis=1)
+media_alunos = np.mean(notas_turma, axis=1)
+
+print("Média por prova (P1, P2, P3):", media_provas)  # Output: [7.666..., 7.5, 7.333...]
+print("Média por aluno (Aluno 0, 1, 2):", media_alunos) # Output: [8.0, 5.0, 9.5]
+```
+
+### Exemplo 2: Preservando a Estrutura Multidimensional com `keepdims=True`
+```python
+import numpy as np
+
+matriz = np.array([
+    [10, 20, 30],
+    [40, 50, 60]
+])
+
+# Sem keepdims: resultado é um vetor 1D de shape (2,)
+soma_sem_keep = np.sum(matriz, axis=1)
+
+# Com keepdims=True: mantém a dimensão 2D com shape (2, 1), facilitando o broadcasting futuro
+soma_com_keep = np.sum(matriz, axis=1, keepdims=True)
+
+print("Soma sem keepdims (shape):", soma_sem_keep.shape, "->", soma_sem_keep)
+print("Soma com keepdims (shape):", soma_com_keep.shape, "->\n", soma_com_keep)
+```
 
 
 
