@@ -8,23 +8,23 @@ Neste material, o conteúdo seguirá o caminho mostrado no fluxograma: primeiro 
 
 ```mermaid
 flowchart TD
-    A["Qual é o tipo de problema?"] --> B{"O que a rede deve prever?"}
+    A["Qual é o tipo de problema<br/>resolvido pela rede?"] --> B{"O que a rede<br/>deve prever?"}
 
-    B -->|"Um valor contínuo"| R["Regressão"]
-    R --> RP["A rede produz uma previsão numérica"]
-    RP --> RM["MSE compara a previsão com o valor correto"]
+    B -->|"Um valor contínuo"| R["Regressão:<br/>prever um valor contínuo"]
+    R --> RP["A rede produz<br/>uma previsão numérica"]
+    RP --> RM["O MSE compara a previsão<br/>com o valor correto"]
 
-    B -->|"Uma classe entre várias"| C["Classificação"]
-    C --> CH["As camadas anteriores extraem características"]
-    CH --> CL["A última camada calcula um logit para cada classe"]
-    CL --> S["Softmax transforma os logits em probabilidades"]
-    S --> CE["Cross-Entropy observa a probabilidade da classe correta"]
+    B -->|"Uma classe entre várias"| C["Classificação multiclasse:<br/>escolher uma entre várias classes"]
+    C --> CH["A rede extrai características<br/>da entrada"]
+    CH --> CL["A última camada calcula<br/>um logit para cada classe"]
+    CL --> S["A Softmax transforma os logits<br/>em probabilidades"]
+    S --> CE["A Cross-Entropy observa<br/>a probabilidade atribuída<br/>à classe correta"]
 
-    RM --> L["Resultado: um valor de perda"]
+    RM --> L["A função produz<br/>um valor de perda"]
     CE --> L
-    L --> BP["Backpropagation calcula os gradientes"]
-    BP --> O["O otimizador ajusta pesos e vieses"]
-    O --> N["A rede realiza uma nova rodada de treinamento"]
+    L --> BP["O backpropagation calcula<br/>os gradientes da perda"]
+    BP --> O["O otimizador usa os gradientes<br/>para atualizar os parâmetros"]
+    O --> N["A rede realiza uma nova<br/>rodada de treinamento"]
 ```
 
 No caminho da classificação, cada elemento possui uma função diferente:
