@@ -156,3 +156,9 @@ Em um experimento acadêmico, é importante manter constantes a arquitetura da r
 [2] KINGMA, Diederik P.; BA, Jimmy. *Adam: A Method for Stochastic Optimization*. International Conference on Learning Representations, 2015. Disponível em: <https://arxiv.org/abs/1412.6980>. Acesso em: 30 set. 2026.
 
 [3] ZHANG, Aston; LIPTON, Zachary C.; LI, Mu; SMOLA, Alexander J. *Dive into Deep Learning: Optimization*. Disponível em: <https://pt.d2l.ai/chapter_optimization/index.html>. Acesso em: 30 set. 2026.
+
+## Colaboradores
+
+| |
+|:---:|
+| [<img loading="lazy" src="https://avatars.githubusercontent.com/u/197432407?v=4" width="115"><br><sub>Beatriz Schuelter Tartare</sub>](https://github.com/beastartare) |
