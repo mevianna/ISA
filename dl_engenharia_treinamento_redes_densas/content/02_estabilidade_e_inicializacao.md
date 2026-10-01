@@ -54,7 +54,7 @@ $$\mathrm{Var}(w) = \frac{2}{n_{in}+n_{out}}$$
 
 ## Inicialização de He (Kaiming)
 
-Proposta por He et al. (2015) [5], no mesmo artigo que introduz a ativação PReLU.
+
 
 ### Derivação
 
@@ -82,7 +82,7 @@ $$\mathrm{Var}(w) = \frac{2}{n_{in}}$$
 - **`fan_in`** ($n_{in}$): preserva a variância no forward (padrão usual).
 - **`fan_out`** ($n_{out}$): preserva a variância dos gradientes no backward.
 
-O artigo original argumenta que qualquer um dos dois é suficiente [5].
+
 
 ### Implementação
 
@@ -101,7 +101,7 @@ Com $a=0$ recupera-se a ReLU.
 
 ### Resultado empírico
 
-No artigo original, em uma rede de 30 camadas a inicialização de Xavier estagnou, enquanto a de He convergiu. Em redes de cerca de 22 camadas ambas convergiram, mas He o fez mais rápido [5].
+ Em uma rede de 30 camadas a inicialização de Xavier estagnou, enquanto a de He convergiu. Em redes de cerca de 22 camadas ambas convergiram, mas He o fez mais rápido [5].
 
 **Quando usar:** ReLU, Leaky ReLU, PReLU e variantes.
 
