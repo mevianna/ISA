@@ -1,4 +1,163 @@
+
+
 # Técnicas de inicialização de parâmetros (Xavier/He)
+
+## Introdução: por que a inicialização importa
+
+Antes do treino, os pesos de uma rede precisam receber algum valor inicial. Se a escala for inadequada, o sinal se deteriora ao atravessar as camadas:
+
+- **Pesos muito pequenos:** a variância das ativações encolhe a cada camada, o sinal tende a zero e os gradientes desaparecem (*vanishing gradients*).
+- **Pesos muito grandes:** a variância cresce a cada camada, os gradientes explodem (*exploding gradients*) e ativações como tanh/sigmoide saturam, travando o aprendizado.
+
+> [!NOTE]
+> Pense em uma fila de pessoas passando uma mensagem adiante: se cada uma sussurra baixo demais, a mensagem some; se cada uma grita, ela vira ruído. A inicialização busca o volume certo para que a mensagem chegue ao fim com a mesma intensidade com que começou.
+
+A ideia central das duas técnicas é a mesma: **escolher a variância dos pesos de modo que a variância das ativações (propagação direta) e dos gradientes (retropropagação) se mantenha aproximadamente constante de camada para camada.** Elas diferem na função de ativação para a qual a conta é feita [4] [5].
+
+---
+
+## Inicialização de Xavier (Glorot)
+
+Proposta por Glorot e Bengio (2010) [4].
+
+### Derivação
+
+Considere uma camada linear $y = \sum_{i=1}^{n_{in}} w_i x_i$, com pesos e entradas independentes e de média zero. Então:
+
+$$\mathrm{Var}(y) = n_{in}\,\mathrm{Var}(w)\,\mathrm{Var}(x)$$
+
+- **Propagação direta (forward):** para manter $\mathrm{Var}(y)=\mathrm{Var}(x)$, é preciso $\mathrm{Var}(w) = \dfrac{1}{n_{in}}$.
+- **Retropropagação (backward):** o mesmo raciocínio aplicado aos gradientes leva a $\mathrm{Var}(w) = \dfrac{1}{n_{out}}$.
+
+As duas condições só coincidem quando $n_{in}=n_{out}$. Glorot e Bengio adotaram um compromisso entre elas:
+
+$$\mathrm{Var}(w) = \frac{2}{n_{in}+n_{out}}$$
+
+### Implementação
+
+| Variante | Distribuição |
+|---|---|
+| Normal | $W \sim \mathcal{N}\!\left(0,\ \dfrac{2}{n_{in}+n_{out}}\right)$ |
+| Uniforme | $W \sim \mathcal{U}\!\left[-\sqrt{\dfrac{6}{n_{in}+n_{out}}},\ +\sqrt{\dfrac{6}{n_{in}+n_{out}}}\right]$ |
+
+> [!IMPORTANT]
+> O limite $\sqrt{6/(n_{in}+n_{out})}$ vem do fato de a variância de uma distribuição uniforme $\mathcal{U}[-a,a]$ ser $a^2/3$.
+
+### Hipóteses e limitações
+
+- Assume ativação aproximadamente **linear em torno de zero** (tanh e softsign satisfazem essa condição).
+- **Não** considera que a ReLU zera metade das ativações. Em redes ReLU profundas, a variância encolhe a cada camada, o que motivou a proposta de He et al. [5].
+
+**Quando usar:** tanh, sigmoide, softsign, ativações aproximadamente lineares e camadas de saída em geral.
+
+---
+
+## Inicialização de He (Kaiming)
+
+Proposta por He et al. (2015) [5], no mesmo artigo que introduz a ativação PReLU.
+
+### Derivação
+
+Para a camada $l$, com $y_l = W_l x_l + b_l$ e $x_l = \max(0, y_{l-1})$:
+
+$$\mathrm{Var}(y_l) = n_l\,\mathrm{Var}(w_l)\,\mathbb{E}[x_l^2]$$
+
+Aqui aparece $\mathbb{E}[x_l^2]$ e não $\mathrm{Var}(x_l)$, porque a saída da ReLU **não tem média zero**. Se $y_{l-1}$ é simétrica em torno de zero, a ReLU elimina metade da massa, e portanto:
+
+$$\mathbb{E}[x_l^2] = \tfrac{1}{2}\,\mathrm{Var}(y_{l-1})$$
+
+Logo:
+
+$$\mathrm{Var}(y_l) = \tfrac{1}{2}\, n_l\,\mathrm{Var}(w_l)\,\mathrm{Var}(y_{l-1})$$
+
+Ao empilhar $L$ camadas, surge o produto $\prod_l \tfrac{1}{2} n_l \mathrm{Var}(w_l)$. Para que ele não exploda nem desapareça, cada fator deve valer 1:
+
+$$\mathrm{Var}(w) = \frac{2}{n_{in}}$$
+
+> [!NOTE]
+> O **fator 2** compensa exatamente a metade das ativações eliminada pela ReLU. Na prática, é a inicialização de Xavier (versão *fan-in*) com o dobro da variância.
+
+### Fan-in vs. fan-out
+
+- **`fan_in`** ($n_{in}$): preserva a variância no forward (padrão usual).
+- **`fan_out`** ($n_{out}$): preserva a variância dos gradientes no backward.
+
+O artigo original argumenta que qualquer um dos dois é suficiente [5].
+
+### Implementação
+
+| Variante | Distribuição |
+|---|---|
+| Normal | $W \sim \mathcal{N}\!\left(0,\ \dfrac{2}{n_{in}}\right)$ |
+| Uniforme | $W \sim \mathcal{U}\!\left[-\sqrt{\dfrac{6}{n_{in}}},\ +\sqrt{\dfrac{6}{n_{in}}}\right]$ |
+
+### Generalização para Leaky ReLU / PReLU
+
+Com inclinação negativa $a$:
+
+$$\mathrm{Var}(w) = \frac{2}{(1+a^2)\,n_{in}}$$
+
+Com $a=0$ recupera-se a ReLU.
+
+### Resultado empírico
+
+No artigo original, em uma rede de 30 camadas a inicialização de Xavier estagnou, enquanto a de He convergiu. Em redes de cerca de 22 camadas ambas convergiram, mas He o fez mais rápido [5].
+
+**Quando usar:** ReLU, Leaky ReLU, PReLU e variantes.
+
+---
+
+## Comparação
+
+| | **Xavier/Glorot** | **He/Kaiming** |
+|---|---|---|
+| Ano | 2010 | 2015 |
+| Ativação-alvo | tanh, sigmoide, linear | ReLU e derivadas |
+| Variância | $\dfrac{2}{n_{in}+n_{out}}$ | $\dfrac{2}{n_{in}}$ (ou $\dfrac{2}{n_{out}}$) |
+| Usa fan_in e fan_out | Ambos | Um ou outro |
+| Hipótese-chave | Ativação linear, média zero | ReLU zera metade das ativações |
+| Falha típica | Variância encolhe em redes ReLU profundas | Pode saturar com tanh/sigmoide |
+
+Existe ainda a inicialização de **LeCun**, $\mathrm{Var}(w)=1/n_{in}$ [6], usada com a ativação SELU em redes auto-normalizantes.
+
+---
+
+## Uso prático
+
+### PyTorch
+
+```python
+import torch.nn as nn
+
+# Xavier
+nn.init.xavier_uniform_(layer.weight)
+nn.init.xavier_normal_(layer.weight)
+
+# He (Kaiming)
+nn.init.kaiming_normal_(layer.weight, mode='fan_in', nonlinearity='relu')
+nn.init.kaiming_uniform_(layer.weight, a=0.01, nonlinearity='leaky_relu')
+
+nn.init.zeros_(layer.bias)
+```
+
+### Keras / TensorFlow
+
+```python
+from tensorflow.keras import layers, initializers
+
+layers.Dense(128, activation='relu',
+             kernel_initializer=initializers.HeNormal())
+layers.Dense(128, activation='tanh',
+             kernel_initializer=initializers.GlorotUniform())  # padrão do Keras
+```
+
+### Boas práticas
+
+- Inicialize os **vieses (biases) com zero**.
+- Combine a inicialização com a ativação: ReLU → He; tanh/sigmoide → Xavier.
+- Os pesos **não** devem ser todos iguais nem todos zero, pois isso impede a quebra de simetria.
+
+---
 
 #  Batch Normalization
 
@@ -77,9 +236,22 @@ Available from https://proceedings.neurips.cc/paper_files/paper/2018/hash/360729
 [3] Santurkar, S., Tsipras, D., Ilyas, A., & Madry, A. (2018). *How does batch normalization help optimization?*. Advances in neural information processing systems, 31.
 Available from https://proceedings.neurips.cc/paper_files/paper/2018/hash/905056c1ac1dad141560467e0a99e1cf-Abstract.html
 
+[4] Ioffe, S. & Szegedy, C. (2015). *Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift*. Proceedings of the 32nd International Conference on Machine Learning, in Proceedings of Machine Learning Research 37:448-456. Disponível em https://proceedings.mlr.press/v37/ioffe15.html.
+
+[5] Bjorck, N., Gomes, C., Selman, B., & Weinberger, K. (2018). *Understanding batch normalization*. Advances in Neural Information Processing Systems, 31. Disponível em https://proceedings.neurips.cc/paper_files/paper/2018/hash/36072923bfc3cf47745d704feb489480-Abstract.html
+
+[6] Santurkar, S., Tsipras, D., Ilyas, A., & Madry, A. (2018). *How does batch normalization help optimization?*. Advances in Neural Information Processing Systems, 31. Disponível em https://proceedings.neurips.cc/paper_files/paper/2018/hash/905056c1ac1dad141560467e0a99e1cf-Abstract.html
+
+[7] Glorot, X. & Bengio, Y. (2010). *Understanding the difficulty of training deep feedforward neural networks*. Proceedings of the 13th International Conference on Artificial Intelligence and Statistics (AISTATS), PMLR 9:249-256. Disponível em https://proceedings.mlr.press/v9/glorot10a.html
+
 
 ## Colaboradores
 
 | |
 |:---:|
 | [<img loading="lazy" src="https://avatars.githubusercontent.com/u/112569754?v=4" width="115"><br><sub>Alice Motin Bastos </sub>](https://github.com/AliceMotin) |
+
+
+| |
+|:---:|
+| [<img loading="lazy" src="https://github.com/ArthurBogoni.png" width="115"><br><sub>Arthur Bogoni</sub>](https://github.com/ArthurBogoni) |
