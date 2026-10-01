@@ -355,3 +355,7 @@ Escolher a função de perda exige observar o tipo de tarefa, o significado da s
 [3] PYTORCH. *CrossEntropyLoss*. PyTorch Documentation. Disponível em: <https://docs.pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html>. Acesso em: 1 out. 2026.
 
 [4] STANFORD UNIVERSITY. *CS231n: Linear Classification — Softmax Classifier*. Stanford Vision and Learning Lab. Disponível em: <https://cs231n.github.io/linear-classify/>. Acesso em: 1 out. 2026.
+
+## Contribuidores 
+| [<img loading="lazy" src="https://avatars.githubusercontent.com/u/160762179?v=4" width=115><br><sub>Maria Eduarda Vianna</sub>](https://github.com/mevianna) | 
+| :---: |
