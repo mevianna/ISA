@@ -76,3 +76,10 @@ Available from https://proceedings.neurips.cc/paper_files/paper/2018/hash/360729
 
 [3] Santurkar, S., Tsipras, D., Ilyas, A., & Madry, A. (2018). *How does batch normalization help optimization?*. Advances in neural information processing systems, 31.
 Available from https://proceedings.neurips.cc/paper_files/paper/2018/hash/905056c1ac1dad141560467e0a99e1cf-Abstract.html
+
+
+## Colaboradores
+
+| |
+|:---:|
+| [<img loading="lazy" src="https://avatars.githubusercontent.com/u/112569754?v=4" width="115"><br><sub>Alice Motin Bastos </sub>](https://github.com/AliceMotin) |
