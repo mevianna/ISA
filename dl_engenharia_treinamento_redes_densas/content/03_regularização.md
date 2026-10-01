@@ -191,3 +191,8 @@ Porém, aplicar regularização em excesso também pode prejudicar o modelo. Se 
 
 Por isso, esses valores devem ser tratados como **hiperparâmetros** e ajustados experimentalmente.
 
+## Colaboradores
+
+| | |
+|:---:|:---:|
+| <img loading="lazy" src="images/colaboradores/lucas_schemes.svg" width="115"><br><sub>Lucas Schemes</sub> | <img loading="lazy" src="images/colaboradores/daiana_brum.svg" width="115"><br><sub>Daiana Brum</sub> |
