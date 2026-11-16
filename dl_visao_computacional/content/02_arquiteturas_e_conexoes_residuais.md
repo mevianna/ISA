@@ -2,43 +2,27 @@
 
 ## A Era Inicial e o Impacto das CNNs (LeNet a AlexNet)
 
-Historicamente, o processamento de dados visuais por redes neurais artificiais enfrentava severos gargalos devido ao uso de Perceptrons Multicamadas (MLPs) totalmente conectados. Em imagens, cada neurônio de uma camada densa precisa se conectar a todos os valores da entrada. Por isso, o número de parâmetros pode se tornar muito grande à medida que aumentam a resolução da imagem e a quantidade de neurônios. As redes convolucionais reduziram esse problema ao explorar padrões locais e compartilhar os mesmos pesos em diferentes posições da imagem. A LeNet-5, apresentada por LeCun et al. (1998), foi um dos primeiros exemplos de grande impacto dessa abordagem, combinando convoluções e operações de redução espacial para reconhecer dígitos manuscritos.
+Historicamente, o processamento de dados visuais por redes neurais artificiais enfrentava severos gargalos devido ao uso de Perceptrons Multicamadas (MLPs) totalmente conectados. Em dados de alta dimensionalidade, como imagens digitais, o número de parâmetros exigidos por arquiteturas densas é proporcional ao produto entre o tamanho da entrada e o número de neurônios, podendo tornar o treinamento computacionalmente inviável e altamente suscetível ao overfitting. A transição para a extração hierárquica de atributos teve um de seus primeiros grandes marcos com a introdução da LeNet-5 por (LeCun et al. 1998). A LeNet-5 consolidou o uso de operadores de convolução e subsampling (pooling), permitindo que o modelo aprendesse invariâncias espaciais locais e reduzisse drasticamente o número de parâmetros livres ao compartilhar pesos no espaço vetorial.
 
-Em 2012, a AlexNet (Krizhevsky et al., 2012) consolidou o *deep learning* ao vencer a competição ImageNet. A rede viabilizou o treinamento de arquiteturas mais profundas, com oito camadas, ao utilizar processamento em GPUs, a função de ativação ReLU e *dropout* para reduzir o *overfitting*.
+Em 2012, a AlexNet (Krizhevsky et al., 2012) consolidou o Deep Learning ao vencer a competição ImageNet. A rede viabilizou o treinamento de arquiteturas mais profundas (8 camadas) ao usar processamento em GPUs, a função de ativação ReLU que amenizou o problema do vanishing gradient e o Dropout para evitar overfitting.
 
 ## O Aprofundamento e a Padronização de Blocos (VGGNet e Inception)
 
-Com o sucesso da AlexNet, a pesquisa focou em aumentar a profundidade das redes para extrair atributos mais complexos. A VGGNet (Simonyan e Zisserman, 2015) padronizou esse empilhamento ao substituir filtros grandes por sequências de filtros pequenos de $3 \times 3$, mantendo o campo receptivo com menos parâmetros e mais não linearidades.
+Com o sucesso da AlexNet, a pesquisa focou em aumentar a profundidade das redes para extrair atributos mais complexos. A VGGNet (Simonyan & Zisserman, 2014) padronizou esse empilhamento ao substituir filtros grandes por sequências de filtros pequenos de 3 x 3, o que manteve o campo receptivo, reduziu parâmetros e adicionou mais não-linearidades. 
 
-Já a GoogLeNet/Inception (Szegedy et al., 2015) focou na eficiência computacional ao criar o módulo Inception. Esse bloco realiza convoluções de diferentes tamanhos em paralelo e utiliza convoluções $1 \times 1$ para reduzir a dimensionalidade antes de operações mais pesadas.
+Já a GoogLeNet/Inception (Szegedy et al., 2015) focou na eficiência computacional ao criar o módulo Inception. Esse bloco realiza convoluções de diferentes tamanhos (1 x 1,3 x 3,5 x 5) em paralelo, aplicando convoluções 1 x 1 (bottlenecks) para reduzir a dimensionalidade antes de operações mais pesadas.
 
 ## O Problema da Degradação e a Barreira da Profundidade
 
-À medida que os pesquisadores tentavam expandir as redes convolucionais, esperava-se que uma rede mais profunda apresentasse, no mínimo, o desempenho de uma rede mais rasa. Em teoria, as camadas adicionais poderiam simplesmente aprender um mapeamento de identidade, $H(x) = x$. Entretanto, experimentos mostraram que, depois de certa profundidade, o erro de treinamento podia aumentar.
+À medida que os pesquisadores tentavam expandir as redes convolucionais para além de 20 ou 30 camadas, a busca por maior profundidade encontrou uma barreira teórica e prática fundamental. Esperava-se que redes mais profundas apresentassem, no mínimo, um desempenho idêntico ao de suas contrapartes mais rasas, visto que as camadas adicionais poderiam teoricamente aprender mapeamentos de identidade (H(x) = x). Contudo, experimentos demonstraram empiricamente o oposto: a partir de um certo limite de profundidade, a acurácia do modelo saturava e, em seguida, degradava rapidamente.
 
-Esse fenômeno é chamado de **degradação** e não é o mesmo que *overfitting*. No *overfitting*, o erro de treinamento é baixo, mas o desempenho em dados novos é ruim. Na degradação, a própria rede mais profunda apresenta erro de treinamento maior que o de uma rede mais rasa.
+É crucial destacar que esse fenômeno de degradação difere fundamentalmente do overfitting. Enquanto o overfitting se caracteriza por um baixo erro no conjunto de treinamento acompanhado de uma baixa generalização no conjunto de teste, o problema da degradação manifesta-se com o aumento do próprio erro de treinamento. O aumento da profundidade em arquiteturas estritamente sequenciais torna a otimização mais difícil. O desaparecimento do gradiente (vanishing gradient) também pode prejudicar a atualização das camadas iniciais, mas não explica sozinho o problema da degradação observado nas redes profundas.
 
-O desaparecimento ou a explosão dos gradientes pode dificultar o treinamento de redes profundas, mas não explica sozinho a degradação. No artigo original da ResNet, as redes já utilizavam técnicas como Batch Normalization. Mesmo assim, uma rede convencional de 56 camadas apresentou erro de treinamento maior que uma de 20 camadas. Isso indicava uma dificuldade de otimização: adicionar camadas tornava mais difícil encontrar uma boa solução, mesmo quando a rede mais profunda poderia, em princípio, reproduzir a solução da rede mais rasa.
+## A Solução ResNet e o Aprendizado Residual (Residual Learning)
 
-## A Solução ResNet e o Aprendizado Residual (*Residual Learning*)
+Para superar a degradação, (He et al. 2015) propuseram as ResNets. A inovação foi redefinir o objetivo de aprendizado: em vez de forçar as camadas a aprender um mapeamento completo H(x), a rede aprende o resíduo F(x) := H(x) - x.
 
-Para enfrentar a degradação, He et al. (2015) propuseram as Redes Residuais, ou ResNets. A inovação foi redefinir o objetivo de aprendizado: em vez de forçar um conjunto de camadas a aprender diretamente um mapeamento completo $H(x)$, o bloco aprende o resíduo:
-
-$$
-F(x) = H(x) - x
-$$
-
-Assim, o resultado desejado pode ser reescrito como:
-
-$$
-H(x) = F(x) + x
-$$
-
-O termo $F(x)$ é produzido pelas camadas do caminho principal. O termo $x$ segue por uma conexão de atalho (*shortcut* ou *skip connection*) e é somado ao resultado do caminho principal.
-
-Em outras palavras, a entrada percorre dois caminhos: no caminho principal, passa pelas camadas que aprendem $F(x)$; no atalho, segue diretamente para a soma que produz $H(x)$.
-
-Se a melhor transformação para determinado bloco estiver próxima da identidade, as camadas do caminho principal precisam aprender apenas um valor residual próximo de zero. Esse objetivo costuma ser mais fácil de otimizar do que reconstruir diretamente todo o mapeamento $H(x)$.
+Essa ideia é aplicada usando atalhos de salto (skip connections), que somam a entrada diretamente à saída do bloco (H(x) = F(x) + x). Esses atalhos oferecem um caminho direto para a propagação do gradiente até as camadas iniciais durante o backpropagation, facilitando o treinamento de redes com centenas de camadas.
 
 ## Como a Conexão Residual Ajuda o Gradiente
 
@@ -109,15 +93,15 @@ Uma ResNet mais profunda não é automaticamente a melhor escolha para qualquer 
 
 ## Referências
 
-[1] LECUN, Yann et al. Gradient-based learning applied to document recognition. *Proceedings of the IEEE*, v. 86, n. 11, p. 2278–2324, 1998.
+[1] LeCun, Yann, et al. "Gradient-based learning applied to document recognition." Proceedings of the IEEE 86.11 (1998): 2278-2324.
 
-[2] KRIZHEVSKY, Alex; SUTSKEVER, Ilya; HINTON, Geoffrey E. ImageNet classification with deep convolutional neural networks. *Advances in Neural Information Processing Systems*, v. 25, 2012.
+[2] Krizhevsky, Alex, Ilya Sutskever, and Geoffrey E. Hinton. "Imagenet classification with deep convolutional neural networks." Advances in neural information processing systems 25 (2012).
 
-[3] SIMONYAN, Karen; ZISSERMAN, Andrew. Very deep convolutional networks for large-scale image recognition. *International Conference on Learning Representations*, 2015.
+[3] Simonyan, Karen, and Andrew Zisserman. "Very deep convolutional networks for large-scale image recognition." arXiv preprint arXiv:1409.1556 (2014).
 
-[4] SZEGEDY, Christian et al. Going deeper with convolutions. In: *IEEE Conference on Computer Vision and Pattern Recognition*. 2015. p. 1–9.
+[4] Szegedy, Christian, et al. "Going deeper with convolutions." Proceedings of the IEEE conference on computer vision and pattern recognition. 2015.
 
-[5] HE, Kaiming et al. Deep residual learning for image recognition. In: *IEEE Conference on Computer Vision and Pattern Recognition*. 2016. p. 770–778. Disponível em: <https://arxiv.org/abs/1512.03385>. Acesso em: 15 nov. 2026.
+[5] He, Kaiming, et al. "Deep residual learning for image recognition." Proceedings of the IEEE conference on computer vision and pattern recognition. 2016.
 
 [6] ZHANG, Aston et al. *Dive into Deep Learning*. Cambridge: Cambridge University Press, 2024. Seção 8.6: Residual Networks (ResNet) and ResNeXt. Disponível em: <https://d2l.ai/chapter_convolutional-modern/resnet.html>. Acesso em: 15 nov. 2026.
 
